@@ -12,6 +12,7 @@ public class IndexController {
     
 	@RequestMapping(value="/today")
 	public String main() {
+		System.out.println("okubo");
 		return "today";
 	}
 }
