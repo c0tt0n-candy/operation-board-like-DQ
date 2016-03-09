@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+    <head>
+		<title>さくせん</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script th:src="@{../js/jquery/jquery.js}" ></script>
+		
+		<script type="text/javascript"> 
+	<!--
+		$(function() {
+			$("#radio_check").click(function() {
+               	alert("選択しているのは、" + $("input:radio[name='operation']:checked").val());
+        	});
+	    });	
+	-->
+		</script>
+	</head>
+	
+    <body>
+    	<div id="background">
+    		<p id="ope" align="center">さくせん</p>
+    	<div id="line">
+    		<table id="tab">
+    		<tr>
+    			<th><input type="radio" name="operation" value="1" id="radio_check" /></th>
+    			<td class="DQ">みんながんばろう</td>
+    		</tr>
+    		<tr>
+    			<th><input type="radio" name="operation" value="2" id="radio_check" /></th>
+    			<td class="DQ">ガンガンいこうぜ</td>
+    		</tr>
+    		<tr>
+    			<th><input type="radio" name="operation" value="3"  id="radio_check" /></th>
+    			<td class="DQ">テストをだいじに</td>
+    		</tr>
+			<tr>
+    			<th><input type="radio" name="operation" value="4"  id="radio_check" /></th>
+    			<td class="DQ">いろいろやろうぜ</td>
+    		</tr>
+    		</table>
+    	</div>
+    	</div>
+    </body>
+</html>
