@@ -10,8 +10,9 @@
 <script type="text/javascript">
 	$(function() {
 		$("input[name='operation']").change(function(){
-			//var date = $(this).val();
-			$("form:first").trigger("submit");
+			//var val = $(this).val();
+			//console.log(val);
+			$("#operationForm").trigger("submit");
 		});
 	});
 </script>
@@ -21,26 +22,22 @@
 	<div id="background">
 		<p id="ope" align="center">さくせん</p>
 		<div id="line">
-			<form method="post" th:action="@{/operation}">
+			<form id="operationForm" method="post" th:action="@{/operation}">
 				<table id="tab">
 					<tr>
-						<th><input type="radio" name="operation" value="1"
-							class="radio_check" /></th>
+						<th class="selected"><input type="radio" name="operation" value="1" class="radio_check" /></th>
 						<td class="DQ">みんながんばろう</td>
 					</tr>
 					<tr>
-						<th><input type="radio" name="operation" value="2"
-							class="radio_check" /></th>
+						<th><input type="radio" name="operation" value="2" class="radio_check" /></th>
 						<td class="DQ">ガンガンいこうぜ</td>
 					</tr>
 					<tr>
-						<th><input type="radio" name="operation" value="3"
-							class="radio_check" /></th>
+						<th><input type="radio" name="operation" value="3" class="radio_check" /></th>
 						<td class="DQ">テストをだいじに</td>
 					</tr>
 					<tr>
-						<th><input type="radio" name="operation" value="4"
-							class="radio_check" /></th>
+						<th><input type="radio" name="operation" value="4" class="radio_check" /></th>
 						<td class="DQ">いろいろやろうぜ</td>
 					</tr>
 				</table>

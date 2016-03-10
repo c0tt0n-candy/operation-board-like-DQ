@@ -20,4 +20,5 @@ public class IndexController {
 		//System.out.println("okubo");
 		return "today";
 	}
+
 }

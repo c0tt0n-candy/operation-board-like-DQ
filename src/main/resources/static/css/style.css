@@ -41,3 +41,20 @@
 	left: 36px;
 	height: 150px;
 }
+
+.radio_check{
+	opacity: 0;
+	z-index: -1;
+}
+
+.radio_check:hover{
+	cursor: pointer;
+}
+
+//th.selected{
+//	width: 0;
+//	height: 0;
+//	border-style: solid;
+//	border-width: 6.5px 0 6.5px 11.3px;
+//	border-color: transparent transparent transparent #ffffff;
+//}
