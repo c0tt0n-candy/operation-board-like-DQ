@@ -17,8 +17,6 @@ public class IndexController {
 
 	@RequestMapping(value = "/operation")
 	public String operation() {
-		//System.out.println("okubo");
-		return "today";
+		return "operation";
 	}
-
 }
