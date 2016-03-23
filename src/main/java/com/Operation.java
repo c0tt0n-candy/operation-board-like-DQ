@@ -10,10 +10,9 @@ public class Operation {
 	private String content;
 	private Timestamp created;
 
-	public Operation(int id, int number, String content, Timestamp created) {
+	public Operation(int id, String content, Timestamp created) {
 		super();
-		this.id = id;
-		this.number = number;
+		this.id = 0;
 		this.content = content;
 		this.created = null;
 	}
@@ -38,7 +37,7 @@ public class Operation {
 		return content;
 	}
 
-	public void setCoutent(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -46,9 +45,11 @@ public class Operation {
 		return new SimpleDateFormat("yyyy/MM/dd").format(created);
 	}
 
+	/*
 	@Override
 	public String toString() {
 		return String.format("Operation[date=%d : content=%s]", created, content);
 	}
+	*/
 
 }

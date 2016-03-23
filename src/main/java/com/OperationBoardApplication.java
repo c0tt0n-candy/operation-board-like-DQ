@@ -28,7 +28,6 @@ public class OperationBoardApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 
 		//log.info("Creating tables");
-		
 		jdbcTemplate.execute("drop table operation_List if exists");
 		jdbcTemplate
 				.execute("create table operation_List(number integer, content varchar, primary key(number))");
@@ -39,7 +38,7 @@ public class OperationBoardApplication implements CommandLineRunner {
 
 		jdbcTemplate.execute("drop table operation_history_Tbl if exists");
 		jdbcTemplate.execute(
-				"create table operation_history_Tbl(id serial, number integer, content varchar, created timestamp, primary key(id))");
+				"create table operation_history_Tbl(id serial, content varchar, created timestamp, primary key(id))");
 
 	}
 }

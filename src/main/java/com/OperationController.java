@@ -1,28 +1,27 @@
-/*package com;
-
-import java.util.Map;
+package com;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import com.Operation;
 
 @RestController
 public class OperationController{
 	
 	@Autowired
-	Operation operation;
+	OperationManager operationManager;
 	
 	@RequestMapping(value="/rest/operation",method=RequestMethod.POST)
 	@ResponseBody
-	public Operation add(@ModelAttribute Map<String, String> map) {
-	    System.out.println("addが呼び出されました。");
-	    System.out.println("map : " + map);
-	    return new Operation(1,"ガンガンいこうぜ",null);
-   }
-		
-}*/
+	Json add(Operation operation) {
+    	int id = this.operationManager.add(operation);
+    	return new Json("{\"success\":true,\"id\":" + id + "}");
+    	
+   }	
+}
