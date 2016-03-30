@@ -8,7 +8,7 @@ public class Operation {
 	private int id;
 	private int number;
 	private String content;
-	private Timestamp created;
+	private String created;
 /*	
 	public Operation(int id, int number, String content, Timestamp created) {
 		super();
@@ -18,7 +18,7 @@ public class Operation {
 		this.created = created;
 	}
 */	
-	public Operation(int id,String content, Timestamp created) {
+	public Operation(int id,String content, String created) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -56,10 +56,10 @@ public class Operation {
 		this.content = content;
 	}
 	
-	public Timestamp getCreated(){
+	public String getCreated(){
 		return 	created;
 	}
-	public void setCreated(Timestamp created){
+	public void setCreated(String created){
 		this.created = created;
 	}
 	
