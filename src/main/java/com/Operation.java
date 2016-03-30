@@ -9,14 +9,29 @@ public class Operation {
 	private int number;
 	private String content;
 	private Timestamp created;
-
-	public Operation(int id, String content, Timestamp created) {
+/*	
+	public Operation(int id, int number, String content, Timestamp created) {
 		super();
-		this.id = 0;
+		this.id = id;
+		this.number = number;
 		this.content = content;
-		this.created = null;
+		this.created = created;
 	}
-
+*/	
+	public Operation(int id,String content, Timestamp created) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.created = created;
+	}
+/*
+	public Operation(int number, String content){
+		super();
+		this.number = number;
+		this.content = content;
+	}
+*/	
+	
 	public int getId() {
 		return id;
 	}
@@ -40,16 +55,16 @@ public class Operation {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
+	
+	public Timestamp getCreated(){
+		return 	created;
+	}
+	public void setCreated(Timestamp created){
+		this.created = created;
+	}
+	
 	public String getformattedCreated() {
 		return new SimpleDateFormat("yyyy/MM/dd").format(created);
 	}
-
-	/*
-	@Override
-	public String toString() {
-		return String.format("Operation[date=%d : content=%s]", created, content);
-	}
-	*/
-
+	
 }
