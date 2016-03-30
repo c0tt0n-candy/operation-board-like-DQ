@@ -1,6 +1,7 @@
 package com;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.text.DateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,15 @@ public class IndexController {
 		//operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
 		String content = jdbcTemplate.queryForObject("select content from operation_List where number=?", 
 				String.class,number);
-		jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content,
-				new Timestamp(System.currentTimeMillis()));
+        Date date = new Date();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+		jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content,df.format(date));
 
 		model.addAttribute("number",number);
 		
 		//operation_history_Tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query("select id,content, created from operation_history_Tbl",
-				(rs, rowNum) -> new Operation(rs.getInt("id"),rs.getString("content"), rs.getTimestamp("created")));
+				(rs, rowNum) -> new Operation(rs.getInt("id"),rs.getString("content"), rs.getString("created")));
 		
 		model.addAttribute("history",operationHistory);
 		
