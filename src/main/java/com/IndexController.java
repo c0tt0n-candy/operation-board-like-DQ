@@ -14,19 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class IndexController {
 
-	// @Autowired
-	// OperationManager operationManager;
-
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	@RequestMapping(value = "/")
 	public String index(Model model) {
-/*		
-		List<Operation> operationList = jdbcTemplate.query("select number, content from operation_List",
-				(rs, rowNum) -> new Operation(rs.getInt("number"), rs.getString("content")));
-		model.addAttribute("opeLis",operationList);
-*/		
 		return "today";
 	}
 
@@ -38,13 +30,19 @@ public class IndexController {
 				String.class,number);
         Date date = new Date();
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-		jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content,df.format(date));
+        int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where created=?", Integer.class, df.format(date));
+        
+        if(count == 0){
+    		jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content, df.format(date));
+        }else{
+        	jdbcTemplate.update("update operation_history_Tbl set content=? where created=?",content, df.format(date));
+        }
 
 		model.addAttribute("number",number);
 		
 		//operation_history_Tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query("select id,content, created from operation_history_Tbl",
-				(rs, rowNum) -> new Operation(rs.getInt("id"),rs.getString("content"), rs.getString("created")));
+		List<Operation> operationHistory = jdbcTemplate.query("select content, created from operation_history_Tbl",
+				(rs, rowNum) -> new Operation(rs.getString("content"), rs.getString("created")));
 		
 		model.addAttribute("history",operationHistory);
 		
