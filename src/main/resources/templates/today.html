@@ -61,13 +61,19 @@ $(document).ready(function(){
 	<!-- 選択したさくせんのnumberを受け取る -->
 	<input type="hidden" id="operationNum" th:value="${number}" />
 
-	<div>
-		<h2>さくせん一覧</h2>
-		<table>
-			<tr>
-				<td>日付</td>
-				<td>さくせん</td>
+	<div class="month">
+		<div class="monthback"><p>＜</p></div>
+		<div class="monthcurrent" th:text="${month}+月"></div>
+		<div class="monthnext"><p>＞</p></div>
+	</div>
+
+	<div class="history">
+		<table id="opeHisTbl">
+			<tr th:each="i : ${#numbers.sequence(1, 31)}">
+				<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
+				<td class="opeHisOpe" />
 			</tr>
+
 			<tr th:each="opeHis:${history}">
 				<td th:text="${opeHis.created}" />
 				<td th:text="${opeHis.content}" />
