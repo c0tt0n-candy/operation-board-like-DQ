@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
@@ -27,8 +28,14 @@ repositories {
 
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+	compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
+
+	compile("org.springframework:spring-jdbc")
+	compile("com.h2database:h2")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
