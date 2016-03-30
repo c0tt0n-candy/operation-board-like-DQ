@@ -69,11 +69,8 @@ $(document).ready(function(){
 				<td>さくせん</td>
 			</tr>
 			<tr th:each="opeHis:${history}">
-			
 				<td th:text="${opeHis.created}" />
-			
 				<td th:text="${opeHis.content}" />
-				<td th:text="${opeHis.id}" />
 			</tr>
 		</table>
 	</div>

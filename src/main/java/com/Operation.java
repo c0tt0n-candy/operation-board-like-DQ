@@ -1,11 +1,10 @@
 package com;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+//import java.sql.Timestamp;
+//import java.text.SimpleDateFormat;
 
 public class Operation {
 
-	private int id;
 	private int number;
 	private String content;
 	private String created;
@@ -18,9 +17,8 @@ public class Operation {
 		this.created = created;
 	}
 */	
-	public Operation(int id,String content, String created) {
+	public Operation(String content, String created) {
 		super();
-		this.id = id;
 		this.content = content;
 		this.created = created;
 	}
@@ -31,7 +29,7 @@ public class Operation {
 		this.content = content;
 	}
 */	
-	
+/*	
 	public int getId() {
 		return id;
 	}
@@ -39,11 +37,10 @@ public class Operation {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+*/
 	public int getNumber() {
 		return number;
 	}
-
 	public void setNumber(int number) {
 		this.number = number;
 	}
@@ -51,7 +48,6 @@ public class Operation {
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -62,9 +58,9 @@ public class Operation {
 	public void setCreated(String created){
 		this.created = created;
 	}
-	
+/*	
 	public String getformattedCreated() {
 		return new SimpleDateFormat("yyyy/MM/dd").format(created);
 	}
-	
+*/	
 }
