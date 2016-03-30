@@ -1,7 +1,7 @@
 package com;
 
 import java.sql.Timestamp;
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,11 +21,6 @@ public class IndexController {
 
 	@RequestMapping(value = "/")
 	public String index(Model model) {
-
-		List<Operation> ope = jdbcTemplate.query("select number,content from operation_List",
-				(rs, rowNum) -> new Operation(rs.getInt("number"), rs.getString("content")));
-
-		model.addAttribute("ope", ope);
 		return "today";
 	}
 

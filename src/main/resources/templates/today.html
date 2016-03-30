@@ -8,24 +8,16 @@
 <script th:src="@{../js/jquery/jquery.js}"></script>
 
 <script type="text/javascript">
-	var opeList = {
-		0 : "みんながんばろう",
-		1 : "ガンガンいこうぜ",
-		2 : "テストをだいじに",
-		3 : "いろいろやろうぜ"
-	};
-
-	$(document).ready(function() {
-		var param = location.search.substring(1);
-		var value = param.split('=');
-		document.getElementsByName("operation")[value[1]].checked = true;
-	});
 
 	$(function() {
-		$("input[name='operation']").change(function() {
+		$("input[name='number']").change(function() {
+			var num = $('[name=number]:checked').val();
+			$("#operationForm").attr("action", $("#operationForm").attr("action")+"?number"+num);
 			$("#operationForm").trigger("submit");
 		});
 	});
+
+
 </script>
 </head>
 
@@ -33,43 +25,52 @@
 	<div id="background">
 		<p id="ope" align="center">さくせん</p>
 		<div id="line">
-			<form id="operationForm" method="get" th:action="@{/operation}">
+			<form id="operationForm" method="post" action="/today">
 				<table id="tab">
 					<tr>
-						<td><input type="radio" name="operation" value="0" class="radio_check" /></td>
-						<td class="DQ">みんながんばろう</td>
+						<td><input type="radio" name="number" value="0"
+							class="radio_check" /></td>
+						<td class="DQ">みんながんばれ</td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="operation" value="1" class="radio_check" /></td>
+						<td><input type="radio" name="number" value="1"
+							class="radio_check" /></td>
 						<td class="DQ">ガンガンいこうぜ</td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="operation" value="2" class="radio_check" /></td>
+						<td><input type="radio" name="number" value="2"
+							class="radio_check" /></td>
 						<td class="DQ">テストをだいじに</td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="operation" value="3" class="radio_check" /></td>
+						<td><input type="radio" name="number" value="3"
+							class="radio_check" /></td>
 						<td class="DQ">いろいろやろうぜ</td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-	
+
+<p th:text="${number}" />
+
+<!--
 	<div>
-	<h2>さくせん一覧</h2>
+		<h2>さくせん一覧</h2>
 		<table>
 			<tr>
 				<td>日付</td>
 				<td>さくせん</td>
 			</tr>
 			<tr>
-			
+
 			</tr>
 			<tr>
-			
+
 			</tr>
 		</table>
 	</div>
+-->	
+	
 </body>
 </html>
