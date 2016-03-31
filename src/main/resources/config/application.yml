@@ -1,0 +1,10 @@
+spring:
+    thymeleaf:
+        cache: false
+    template:
+        cache: false
+    datasource:
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:file:./db/test
+        username: sa
+        password:
