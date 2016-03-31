@@ -1,6 +1,7 @@
 package com;
 
-import java.text.DateFormat;
+//import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -50,26 +51,32 @@ public class IndexController {
 		// operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
 		String content = jdbcTemplate.queryForObject("select content from operation_List where number=?", String.class,
 				number);
+		
 		Date date = new Date();
-		DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+		String strdate = new SimpleDateFormat("yyyy/MM/dd").format(date);
+/*		
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_MONTH, -1);
+		String strpreviousdate = new SimpleDateFormat("yyyy/MM/dd").format(calendar.getTime());
+*/
 		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where created=?",
-				Integer.class, df.format(date));
-
+				Integer.class, strdate);
+		
 		if (count == 0) {
 			jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content,
-					df.format(date));
+					strdate);
 		} else {
-			jdbcTemplate.update("update operation_history_Tbl set content=? where created=?", content, df.format(date));
+			jdbcTemplate.update("update operation_history_Tbl set content=? where created=?", content, strdate);
 		}
-
+		
 		model.addAttribute("number", number);
-
+		
 		// operation_history_Tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query("select content, created from operation_history_Tbl",
 				(rs, rowNum) -> new Operation(rs.getString("content"), rs.getString("created")));
-
+		
 		model.addAttribute("history", operationHistory);
-
+		
 		return "today";
 	}
 }
