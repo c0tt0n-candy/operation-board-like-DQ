@@ -61,39 +61,52 @@ td.selected{
 }
 
 .month{
-	width: 250px;
+	width: 260px;
 	height: 50px;
-	margin: 0 auto
+	//margin: 0 auto;
 }
-.monthback{
+.lastmonth{
 	width: 100px;
 	height: 50px;
 	float: left;
 	text-align: center;
 }
-.monthcurrent{
-	width: 50px;
+.currentmonth{
+	width: 60px;
 	height: 50px;
 	float: left;
 	text-align: center;
-	font-size: 1.5em;
+	//font-size: 1.5em;
 }
-.monthnext{
+.nextmonth{
 	width: 100px;
 	height: 50px;
 	float: left;
 	text-align: center;
 }
 
-#opeHisTbl{
-	border-collapse: collapse; 
-	margin: 0 auto;
+.opeHisTbl{
+	border-collapse: collapse;
+	//margin: 0 auto;
+}
+.cells{
+	border: 1px solid;
+}
+.leftTbl{
+	border-collapse: collapse;
+	margin: -2px;
 }
 .opeHisDay{
+	width: 30px;
+	height: 30px;
 	border: 1px solid;
-	padding: 4px;
+}
+.rightTbl{
+	border-collapse: collapse;
+	margin: -2px;
 }
 .opeHisOpe{
 	width: 200px;
+	height: 30px;
 	border: 1px solid;
 }

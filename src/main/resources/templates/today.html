@@ -62,21 +62,28 @@ $(document).ready(function(){
 	<input type="hidden" id="operationNum" th:value="${number}" />
 
 	<div class="month">
-		<div class="monthback"><p>＜</p></div>
-		<div class="monthcurrent" th:text="${month}+月"></div>
-		<div class="monthnext"><p>＞</p></div>
+		<div class="lastmonth"><p>＜</p></div>
+		<div class="currentmonth" th:text="${year}+年+${month}+月"></div>
+		<div class="nextmonth"><p>＞</p></div>
 	</div>
 
 	<div class="history">
-		<table id="opeHisTbl">
-			<tr th:each="i : ${#numbers.sequence(1, 31)}">
-				<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
-				<td class="opeHisOpe" />
-			</tr>
-
-			<tr th:each="opeHis:${history}">
-				<td th:text="${opeHis.created}" />
-				<td th:text="${opeHis.content}" />
+		<table class="opeHisTbl">
+			<tr>
+				<td class="cells">
+					<table class="leftTbl">
+						<tr th:each="i:${#numbers.sequence(1, 31)}">
+							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
+						</tr>
+					</table>
+				</td>
+				<td class="cells">
+					<table class="rightTbl">
+						<tr th:each="i:${#numbers.sequence(1, 31)}">
+							<td class="opeHisOpe" align="center" />
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</table>
 	</div>
