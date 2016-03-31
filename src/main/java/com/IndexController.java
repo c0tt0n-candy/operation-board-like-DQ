@@ -36,7 +36,17 @@ public class IndexController {
 
 	@RequestMapping(value = "/today")
 	public String update(Model model, @RequestParam("number") String number) {
+		// カレンダー取得
+		Calendar calendar = Calendar.getInstance();
 
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int day = calendar.get(Calendar.DATE);
+
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		
 		// operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
 		String content = jdbcTemplate.queryForObject("select content from operation_List where number=?", String.class,
 				number);
