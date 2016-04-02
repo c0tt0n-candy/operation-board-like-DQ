@@ -27,11 +27,11 @@ $(document).ready(function(){
 </head>
 
 <body>
-	<div id="background">
-		<p id="ope" align="center">さくせん</p>
+	<div class="operationList">
+		<p id="operation" align="center">さくせん</p>
 		<div id="line">
 			<form id="operationForm" method="post" action="/today">
-				<table id="tab">
+				<table class="list">
 					<tr>
 						<td><input type="radio" name="number" value="0"
 							class="check" /></td>
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	</div>
 	
 	
-	<div class="history">
+	<div>
 		<table class="opeHisTbl">
 			<tr>
 				<td class="cells">

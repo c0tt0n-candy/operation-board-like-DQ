@@ -1,115 +1,115 @@
-.DQ{
-	color: #ffffff;
-}
-
-#ope{
-	position: relative;
-	left: 40px;
-	
-	color: #ffffff;
-	background-color: #000000;
-	font-size: larger;
-	
-	width: 80px;
-	height: 30px;
-	z-index: 1;
-}
-
-#background{
+/* さくせんリストdiv内の要素 */
+.operationList{
 	width: 300px;
 	height: 200px;
-	//margin: 0 auto;
+	margin: 0 auto;
 	background-color: #000000;
+	position: relative;
 }
+	#operation{
+		position: absolute;
+		top: -18px;
+		left: 50px;
+		
+		color: #ffffff;
+		background-color: #000000;
+		font-size: larger;
+		
+		width: 80px;
+		height: 30px;
+		z-index: 1;
+		
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	#line{
+		position: absolute;
+		top: 15px;
+		left: 20px;
+		
+		width: 260px;
+		height: 170px;
+		
+		border: 3px #ffffff solid;
+		border-radius: 25px;
+	}
+		.list{
+			position: absolute;
+			font-size: large;
+			
+			top: 12px;
+			left: 40px;
+			height: 150px;
+		}
+		/* td.selected{
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 5px 0 5px 8.7px;
+			border-color: transparent transparent transparent #ffffff;
+		} */
+			.check{
+				//opacity: 0;
+				//z-index: 1;
+			}
+			.check:hover{
+				cursor: pointer;
+			}
+			.DQ{
+				color: #ffffff;
+			}
 
-#line{
-	position: absolute;
-	top: 32px;
-	left: 26px;
-	
-	width: 260px;
-	height: 170px;
-	
-	border: 3px #ffffff solid;
-	border-radius: 25px;
-}
 
-#tab{
-	position: absolute;
-	font-size: large;
-	
-	top: 18px;
-	left: 36px;
-	height: 150px;
-}
-
-.check{
-	//opacity: 0;
-	z-index: 1;
-}
-
-.check:hover{
-	cursor: pointer;
-}
-
-td.selected{
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 5px 0 5px 8.7px;
-	border-color: transparent transparent transparent #ffffff;
-}
-
-
+/* 現在表示中の年月div内の要素 */
 .month{
 	width: 260px;
 	height: 50px;
-	//margin: 0 auto;
+	margin: 0 auto;
 }
-.lastmonth{
-	width: 100px;
-	height: 50px;
-	float: left;
-	text-align: center;
-}
-.currentmonth{
-	width: 60px;
-	height: 50px;
-	float: left;
-	text-align: center;
-	//font-size: 1.5em;
-}
-.nextmonth{
-	width: 100px;
-	height: 50px;
-	float: left;
-	text-align: center;
-}
+	.lastmonth{
+		width: 100px;
+		height: 50px;
+		float: left;
+		text-align: center;
+	}
+	.currentmonth{
+		width: 60px;
+		height: 50px;
+		float: left;
+		text-align: center;
+	}
+	.nextmonth{
+		width: 100px;
+		height: 50px;
+		float: left;
+		text-align: center;
+	}
 
 
+/* 過去の作戦履歴div内の要素 */
 .opeHisTbl{
 	border-collapse: collapse;
-	//margin: 0 auto;
+	margin: 0 auto;
 }
-.cells{
-	border: 1px solid;
-}
-.leftTbl{
-	border-collapse: collapse;
-	margin: -2px;
-}
-.opeHisDay{
-	width: 30px;
-	height: 30px;
-	border: 1px solid;
-}
-.rightTbl{
-	border-collapse: collapse;
-	margin: -2px;
-}
-.opeHisOpe{
-	width: 200px;
-	height: 30px;
-	border: 1px solid;
-}
+	.cells{
+		border: 1px solid;
+	}
+		.leftTbl{
+			border-collapse: collapse;
+			margin: -2px;
+		}
+			.opeHisDay{
+				width: 30px;
+				height: 30px;
+				border: 1px solid;
+			}
+		.rightTbl{
+			border-collapse: collapse;
+			margin: -2px;
+		}
+			.opeHisOpe{
+				width: 200px;
+				height: 30px;
+				border: 1px solid;
+			}
 
