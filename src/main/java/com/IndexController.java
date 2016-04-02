@@ -1,6 +1,5 @@
 package com;
 
-//import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,57 +20,61 @@ public class IndexController {
 
 	@RequestMapping(value = "/")
 	public String index(Model model) {
-		// カレンダー取得
+	// カレンダー取得	
 		Calendar calendar = Calendar.getInstance();
-
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH) + 1;
-		int day = calendar.get(Calendar.DATE);
-
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-		model.addAttribute("day", day);
-
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH) + 1;
+		
+		model.addAttribute("calendar",calendar);
+		model.addAttribute("nowYear",nowYear);
+		model.addAttribute("nowMonth",nowMonth);
+		
+		int nowDay = calendar.get(Calendar.DATE);
+		model.addAttribute(nowDay);
+		
+	// operation_history_Tblから過去の履歴を取得する.
+		List<Operation> operationHistory = jdbcTemplate.query("select content, created from operation_history_Tbl",
+				(rs, rowNum) -> new Operation(rs.getString("content"), rs.getString("created")));
+		
+		model.addAttribute("history", operationHistory);
+		
 		return "today";
 	}
 
 	@RequestMapping(value = "/today")
 	public String update(Model model, @RequestParam("number") String number) {
-		// カレンダー取得
-		Calendar calendar = Calendar.getInstance();
-
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH) + 1;
-		int day = calendar.get(Calendar.DATE);
-
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-		model.addAttribute("day", day);
+		model.addAttribute("number", number);
 		
-		// operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
+	// カレンダー取得
+		Calendar calendar = Calendar.getInstance();
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH) + 1;
+		
+		model.addAttribute("calendar",calendar);
+		model.addAttribute("nowYear",nowYear);
+		model.addAttribute("nowMonth",nowMonth);
+		
+	// operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
 		String content = jdbcTemplate.queryForObject("select content from operation_List where number=?", String.class,
 				number);
-		
 		Date date = new Date();
-		String strdate = new SimpleDateFormat("yyyy/MM/dd").format(date);
-/*		
-		calendar.setTime(date);
+		String strDate = new SimpleDateFormat("yyyy/MM/dd").format(date);
+		model.addAttribute("date",date);
+		
+/*		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		String strpreviousdate = new SimpleDateFormat("yyyy/MM/dd").format(calendar.getTime());
 */
 		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where created=?",
-				Integer.class, strdate);
-		
+				Integer.class, strDate);
 		if (count == 0) {
 			jdbcTemplate.update("insert into operation_history_Tbl(content,created) values(?,?)", content,
-					strdate);
+					strDate);
 		} else {
-			jdbcTemplate.update("update operation_history_Tbl set content=? where created=?", content, strdate);
+			jdbcTemplate.update("update operation_history_Tbl set content=? where created=?", content, strDate);
 		}
 		
-		model.addAttribute("number", number);
-		
-		// operation_history_Tblから過去の履歴を取得する.
+	// operation_history_Tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query("select content, created from operation_history_Tbl",
 				(rs, rowNum) -> new Operation(rs.getString("content"), rs.getString("created")));
 		

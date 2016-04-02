@@ -13,6 +13,16 @@ $(document).ready(function(){
 	if(checkNum != ""){
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
+	
+	var strCreated = $(".opeHisCreated").val();
+	if( strCreated != ""){
+		 splitCreated = strCreated.split("/");
+		
+		var opeYear = Number(splitCreated[0]);
+		var opeMonth = Number(splitCreated[1]);
+		var opeDay = Number(splitCreated[2]);
+ 	}
+ 	
 });
 
 	$(function() {
@@ -22,7 +32,6 @@ $(document).ready(function(){
 			$("#operationForm").trigger("submit");
 		});
 	});
-
 
 </script>
 </head>
@@ -59,30 +68,26 @@ $(document).ready(function(){
 	</div>
 
 	<!-- 選択したさくせんのnumberを受け取る -->
-	<input type="hidden" id="operationNum" th:value="${number}" />
-
+		<input type="hidden" id="operationNum" th:value="${number}" />
+	
 	<div>
 		<table>
-			<tr>
-				<td>日付</td>
-				<td>さくせん</td>
-			</tr>
 			<tr th:each="opeHis:${history}">
-				<td th:text="${opeHis.created}" />
-				<td th:text="${opeHis.content}"/>
+				<input class="opeHisCreated" type="hidden" th:value="${opeHis.created}" />
+				<td th:if="${opeYear EQ nowYear}" th:text="${opeHis.created}" />
+				<td th:text="${opeHis.content}" />
 			</tr>
 		</table>
 	</div>
 	
-<!--
+	
 	<div class="month">
 		<div class="lastmonth"><p>＜</p></div>
-		<div class="currentmonth" th:text="${year}+年+${month}+月"></div>
+		<div class="currentmonth" th:text="${nowYear}+年+${nowMonth}+月"></div>
 		<div class="nextmonth"><p>＞</p></div>
 	</div>
--->
-
-<!--
+	
+	
 	<div class="history">
 		<table class="opeHisTbl">
 			<tr>
@@ -96,14 +101,21 @@ $(document).ready(function(){
 				<td class="cells">
 					<table class="rightTbl">
 						<tr th:each="i:${#numbers.sequence(1, 31)}">
-							<td class="opeHisOpe" align="center" />
+							<td class="opeHisOpe" align="center">
+								<div th:each="opeHis:${history}" th:if="${opeYear EQ nowYear AND opeMonth EQ nowMonth}">
+									<table>
+										<tr>
+											<td th:text="${i}"></td>
+										</tr>
+									</table>
+								</div>
+							</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
 		</table>
 	</div>
--->
 
 </body>
 </html>

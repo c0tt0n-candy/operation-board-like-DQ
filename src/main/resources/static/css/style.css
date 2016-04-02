@@ -60,6 +60,7 @@ td.selected{
 	border-color: transparent transparent transparent #ffffff;
 }
 
+
 .month{
 	width: 260px;
 	height: 50px;
@@ -84,6 +85,7 @@ td.selected{
 	float: left;
 	text-align: center;
 }
+
 
 .opeHisTbl{
 	border-collapse: collapse;
@@ -110,3 +112,4 @@ td.selected{
 	height: 30px;
 	border: 1px solid;
 }
+
