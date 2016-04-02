@@ -14,6 +14,12 @@ public class Operation {
 		this.day = day;
 		this.content = content;
 	}
+	
+	public Operation(int day, String content) {
+		super();
+		this.day = day;
+		this.content = content;
+	}
 
 	public int getYear(){
 		return year;

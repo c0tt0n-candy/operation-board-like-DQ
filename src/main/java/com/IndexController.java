@@ -1,8 +1,6 @@
 package com;
 
-//import java.text.SimpleDateFormat;
 import java.util.Calendar;
-//import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +27,9 @@ public class IndexController {
 		model.addAttribute("nowYear",nowYear);
 		model.addAttribute("nowMonth",nowMonth);
 		
-//		int nowDay = calendar.get(Calendar.DATE);
-//		model.addAttribute(nowDay);
-		
 	// operation_history_Tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query("select * from operation_history_Tbl",
-				(rs, rowNum) -> new Operation(rs.getInt("year"), rs.getInt("month"), rs.getInt("day"), rs.getString("content")));
+		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
+				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nowYear, nowMonth);
 		
 		model.addAttribute("history", operationHistory);
 		
@@ -58,13 +53,6 @@ public class IndexController {
 	// operation_Listからnumberに対応したさくせんを得,operation_history_Tblを更新する.
 		String content = jdbcTemplate.queryForObject("select content from operation_List where number=?", String.class,
 				number);
-		
-//		Date date = new Date();
-//		model.addAttribute("date",date);
-		
-//		calendar.setTime(date);
-//		calendar.add(Calendar.DAY_OF_MONTH, -1);
-//		String strPreviousDate = new SimpleDateFormat("yyyy/MM/dd").format(calendar.getTime());
 
 		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where year=? and month=? and day=?",
 				Integer.class, nowYear, nowMonth, nowDay);
@@ -75,8 +63,8 @@ public class IndexController {
 		}
 		
 	// operation_history_Tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query("select * from operation_history_Tbl",
-				(rs, rowNum) -> new Operation(rs.getInt("year"), rs.getInt("month"), rs.getInt("day"), rs.getString("content")));
+		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
+				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nowYear, nowMonth);
 		
 		model.addAttribute("history", operationHistory);
 		
