@@ -60,16 +60,6 @@ $(document).ready(function(){
 	<!-- 選択したさくせんのnumberを受け取る -->
 		<input type="hidden" id="operationNum" th:value="${number}" />
 	
-	<div>
-		<table>
-			<tr th:each="opeHis:${history}">
-				<td th:text="${opeHis.day}" />
-				<td th:text="${opeHis.content}" />
-			</tr>
-		</table>
-	</div>
-	
-	
 	<div class="month">
 		<div class="lastmonth"><p>＜</p></div>
 		<div class="currentmonth" th:text="${nowYear}+年+${nowMonth}+月"></div>
@@ -91,12 +81,7 @@ $(document).ready(function(){
 					<table class="rightTbl">
 						<tr th:each="i:${#numbers.sequence(1, 31)}">
 							<td class="opeHisOpe" align="center">
-								<div th:each="opeHis:${history}" th:if="${opeYear EQ nowYear AND opeMonth EQ nowMonth}">
-									<table>
-										<tr>
-											<td th:text="${i}"></td>
-										</tr>
-									</table>
+								<div th:each="opeHis:${history}" th:if="${opeHis.day EQ i}" th:text="${opeHis.content}">
 								</div>
 							</td>
 						</tr>
