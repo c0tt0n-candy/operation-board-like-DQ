@@ -13,15 +13,6 @@ $(document).ready(function(){
 	if(checkNum != ""){
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
-	
-	var strCreated = $(".opeHisCreated").val();
-	if( strCreated != ""){
-		 splitCreated = strCreated.split("/");
-		
-		var opeYear = Number(splitCreated[0]);
-		var opeMonth = Number(splitCreated[1]);
-		var opeDay = Number(splitCreated[2]);
- 	}
  	
 });
 
@@ -73,8 +64,9 @@ $(document).ready(function(){
 	<div>
 		<table>
 			<tr th:each="opeHis:${history}">
-				<input class="opeHisCreated" type="hidden" th:value="${opeHis.created}" />
-				<td th:if="${opeYear EQ nowYear}" th:text="${opeHis.created}" />
+				<td th:text="${opeHis.year}" />
+				<td th:text="${opeHis.month}" />
+				<td th:text="${opeHis.day}" />
 				<td th:text="${opeHis.content}" />
 			</tr>
 		</table>

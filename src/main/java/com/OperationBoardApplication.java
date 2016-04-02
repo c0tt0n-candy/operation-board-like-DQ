@@ -6,10 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.stream.Collectors;
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class OperationBoardApplication implements CommandLineRunner {
@@ -34,7 +33,7 @@ public class OperationBoardApplication implements CommandLineRunner {
 
 		jdbcTemplate.execute("drop table operation_history_Tbl if exists");
 		jdbcTemplate.execute(
-				"create table operation_history_Tbl(content varchar, created varchar, primary key(created))");
+				"create table operation_history_Tbl(year integer, month integer, day integer, content varchar, primary key(year,month,day))");
 */
 	}
 }

@@ -1,48 +1,37 @@
 package com;
 
-//import java.sql.Timestamp;
-//import java.text.SimpleDateFormat;
-
 public class Operation {
-
-	private int number;
+	
+	private int year;
+	private int month;
+	private int day;
 	private String content;
-	private String created;
-/*	
-	public Operation(int id, int number, String content, Timestamp created) {
+
+	public Operation(int year, int month, int day, String content) {
 		super();
-		this.id = id;
-		this.number = number;
+		this.year = year;
+		this.month = month;
+		this.day = day;
 		this.content = content;
-		this.created = created;
-	}
-*/	
-	public Operation(String content, String created) {
-		super();
-		this.content = content;
-		this.created = created;
-	}
-/*
-	public Operation(int number, String content){
-		super();
-		this.number = number;
-		this.content = content;
-	}
-*/	
-/*	
-	public int getId() {
-		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getYear(){
+		return year;
 	}
-*/
-	public int getNumber() {
-		return number;
+	public void setYear(int year){
+		this.year = year;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public int getMonth(){
+		return month;
+	}
+	public void setMonth(int month){
+		this.month = month;
+	}
+	public int getDay(){
+		return day;
+	}
+	public void setDay(int day){
+		this.day = day;
 	}
 
 	public String getContent() {
@@ -51,16 +40,5 @@ public class Operation {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	public String getCreated(){
-		return 	created;
-	}
-	public void setCreated(String created){
-		this.created = created;
-	}
-/*	
-	public String getformattedCreated() {
-		return new SimpleDateFormat("yyyy/MM/dd").format(created);
-	}
-*/	
+
 }
