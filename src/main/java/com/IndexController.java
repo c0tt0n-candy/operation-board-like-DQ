@@ -38,7 +38,8 @@ public class IndexController {
 		
 		return "today";
 	}
-
+	
+	
 	@RequestMapping(value = "/today")
 	public String update(Model model, @RequestParam("number") String number) {
 		model.addAttribute("number", number);
@@ -76,4 +77,58 @@ public class IndexController {
 		
 		return "today";
 	}
+	
+	
+	@RequestMapping(value = "/previous")
+	public String getPrevious(Model model, @RequestParam("previous") String previous) {
+		String[] prev = previous.split("/");
+		
+		int prevYear = Integer.parseInt(prev[0]);
+		int prevMonth = Integer.parseInt(prev[1]);
+		
+	// カレンダー取得
+		Calendar calendar = Calendar.getInstance();
+		
+		model.addAttribute("nowYear",prevYear);
+		model.addAttribute("nowMonth",prevMonth);
+		
+		calendar.set(prevYear,prevMonth-1,1);
+		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		model.addAttribute("lastDay",lastDay);
+		
+	// operation_history_Tblから過去の履歴を取得する.
+		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
+				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), prevYear, prevMonth);
+		
+		model.addAttribute("history", operationHistory);
+		
+		return "today";
+	}
+	
+	@RequestMapping(value = "/next")
+	public String getNext(Model model, @RequestParam("next") String next) {
+		String[] nex = next.split("/");
+		
+		int nexYear = Integer.parseInt(nex[0]);
+		int nexMonth = Integer.parseInt(nex[1]);
+		
+	// カレンダー取得
+		Calendar calendar = Calendar.getInstance();
+		
+		model.addAttribute("nowYear",nexYear);
+		model.addAttribute("nowMonth",nexMonth);
+		
+		calendar.set(nexYear,nexMonth-1,1);
+		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		model.addAttribute("lastDay",lastDay);
+		
+	// operation_history_Tblから過去の履歴を取得する.
+		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
+				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nexYear, nexMonth);
+		
+		model.addAttribute("history", operationHistory);
+		
+		return "today";
+	}
+	
 }
