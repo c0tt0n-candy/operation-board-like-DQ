@@ -95,7 +95,7 @@ public class IndexController {
 		String[] prev = previous.split("/");
 		int prevYear = Integer.parseInt(prev[0]);
 		int prevMonth = Integer.parseInt(prev[1]);
-		if(prevMonth == 1){
+		if(prevMonth == 0){
 			prevYear -= 1;
 			prevMonth = 12;
 		}
@@ -136,7 +136,7 @@ public class IndexController {
 		
 		int nexYear = Integer.parseInt(nex[0]);
 		int nexMonth = Integer.parseInt(nex[1]);
-		if(nexMonth == 12){
+		if(nexMonth == 13){
 			nexYear += 1;
 			nexMonth = 1;
 		}
