@@ -103,6 +103,20 @@ public class IndexController {
 		model.addAttribute("nowMonth",prevMonth);
 		
 		Calendar calendar = Calendar.getInstance();
+		
+	// 現在選択中のさくせんがあればそのnumberを送る.
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH) + 1;
+		int nowDay = calendar.get(Calendar.DATE);
+		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where year=? and month=? and day=?",
+				Integer.class, nowYear, nowMonth, nowDay);
+		if (count == 1) {
+			String content = jdbcTemplate.queryForObject("select content from operation_history_Tbl where year=? and month=? and day=?", String.class,
+				nowYear,nowMonth,nowDay);
+			int number = jdbcTemplate.queryForObject("select number from operation_List where content=?", Integer.class,content);
+			model.addAttribute("number",number);
+		}
+		
 		calendar.set(prevYear,prevMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay",lastDay);
@@ -130,6 +144,20 @@ public class IndexController {
 		model.addAttribute("nowMonth",nexMonth);
 		
 		Calendar calendar = Calendar.getInstance();
+		
+	// 現在選択中のさくせんがあればそのnumberを送る.
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH) + 1;
+		int nowDay = calendar.get(Calendar.DATE);
+		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where year=? and month=? and day=?",
+				Integer.class, nowYear, nowMonth, nowDay);
+		if (count == 1) {
+			String content = jdbcTemplate.queryForObject("select content from operation_history_Tbl where year=? and month=? and day=?", String.class,
+				nowYear,nowMonth,nowDay);
+			int number = jdbcTemplate.queryForObject("select number from operation_List where content=?", Integer.class,content);
+			model.addAttribute("number",number);
+		}
+		
 		calendar.set(nexYear,nexMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay",lastDay);
