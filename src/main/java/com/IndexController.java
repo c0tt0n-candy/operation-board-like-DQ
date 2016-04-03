@@ -22,6 +22,7 @@ public class IndexController {
 		Calendar calendar = Calendar.getInstance();
 		int nowYear = calendar.get(Calendar.YEAR);
 		int nowMonth = calendar.get(Calendar.MONTH) + 1;
+		int nowDay = calendar.get(Calendar.DATE);
 		
 		model.addAttribute("nowYear",nowYear);
 		model.addAttribute("nowMonth",nowMonth);
@@ -29,6 +30,12 @@ public class IndexController {
 		calendar.set(nowYear,nowMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay",lastDay);
+		
+	// 現在選択中のさくせんがあればそのnumberを送る.
+		String content = jdbcTemplate.queryForObject("select content from operation_history_Tbl where year=? and month=? and day=?", String.class,
+				nowYear,nowMonth,nowDay);
+		int number = jdbcTemplate.queryForObject("select number from operation_List where content=?", Integer.class,content);
+		model.addAttribute("number",number);
 		
 	// operation_history_Tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
