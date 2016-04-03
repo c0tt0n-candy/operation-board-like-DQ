@@ -63,14 +63,14 @@ $(document).ready(function(){
 	<div class="month">
 		<div class="lastmonth">
 			<form method="get" action="/previous">
-				<input type="hidden" name="previous" th:value="${nowYear}+'/'+(${nowMonth}-1)" />
+				<input type="hidden" name="previous" th:value="${dispYear}+'/'+(${dispMonth}-1)" />
 				<input type="submit" th:value="＜" />
 			</form>
 		</div>
-		<div class="currentmonth" th:text="${nowYear}+年+${nowMonth}+月"></div>
+		<div class="currentmonth" th:text="${dispYear}+年+${dispMonth}+月"></div>
 		<div class="nextmonth">
 			<form method="get" action="/next">
-				<input type="hidden" name="next" th:value="${nowYear}+'/'+(${nowMonth}+1)" />
+				<input type="hidden" name="next" th:value="${dispYear}+'/'+(${dispMonth}+1)" />
 				<input type="submit" th:value="＞" />
 			</form>
 		</div>

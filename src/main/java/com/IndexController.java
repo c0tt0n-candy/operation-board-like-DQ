@@ -24,8 +24,8 @@ public class IndexController {
 		int nowMonth = calendar.get(Calendar.MONTH) + 1;
 		int nowDay = calendar.get(Calendar.DATE);
 		
-		model.addAttribute("nowYear",nowYear);
-		model.addAttribute("nowMonth",nowMonth);
+		model.addAttribute("dispYear",nowYear);
+		model.addAttribute("dispMonth",nowMonth);
 		
 		calendar.set(nowYear,nowMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
@@ -61,8 +61,8 @@ public class IndexController {
 		int nowMonth = calendar.get(Calendar.MONTH) + 1;
 		int nowDay = calendar.get(Calendar.DATE);
 		
-		model.addAttribute("nowYear",nowYear);
-		model.addAttribute("nowMonth",nowMonth);
+		model.addAttribute("dispYear",nowYear);
+		model.addAttribute("dispMonth",nowMonth);
 		
 		calendar.set(nowYear,nowMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
@@ -99,8 +99,8 @@ public class IndexController {
 			prevYear -= 1;
 			prevMonth = 12;
 		}
-		model.addAttribute("nowYear",prevYear);
-		model.addAttribute("nowMonth",prevMonth);
+		model.addAttribute("dispYear",prevYear);
+		model.addAttribute("dispMonth",prevMonth);
 		
 		Calendar calendar = Calendar.getInstance();
 		
@@ -140,8 +140,8 @@ public class IndexController {
 			nexYear += 1;
 			nexMonth = 1;
 		}
-		model.addAttribute("nowYear",nexYear);
-		model.addAttribute("nowMonth",nexMonth);
+		model.addAttribute("dispYear",nexYear);
+		model.addAttribute("dispMonth",nexMonth);
 		
 		Calendar calendar = Calendar.getInstance();
 		
