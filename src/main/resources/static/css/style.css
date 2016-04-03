@@ -110,7 +110,11 @@
 	float: left;
 	text-align: center;
 }
-input[type="submit"]{
+.month input[type="submit"] {
+	position: relative;
+	top: 8px;
+	font-size: larger;
+	
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
