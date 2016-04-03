@@ -98,6 +98,11 @@
 	float: left;
 	text-align: center;
 }
+input[type="submit"]{
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
 
 /* ‰ß‹‚Ììí—š—ğdiv“à‚Ì—v‘f */
 .opeHisTbl {

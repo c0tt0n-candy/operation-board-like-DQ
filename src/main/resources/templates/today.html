@@ -22,6 +22,7 @@ $(document).ready(function(){
 			$("#operationForm").trigger("submit");
 		});
 	});
+	
 
 </script>
 </head>
@@ -59,14 +60,24 @@ $(document).ready(function(){
 
 	<!-- 選択したさくせんのnumberを受け取る -->
 		<input type="hidden" id="operationNum" th:value="${number}" />
-	
+
 	<div class="month">
-		<div class="lastmonth"><p>＜</p></div>
+		<div class="lastmonth">
+			<form id="previous" method="post" action="/previous">
+				<input type="hidden" th:value="${nowYear}+'/'+${nowMonth}" />
+				<input type="submit" th:value="＜" />
+			</form>
+		</div>
 		<div class="currentmonth" th:text="${nowYear}+年+${nowMonth}+月"></div>
-		<div class="nextmonth"><p>＞</p></div>
+		<div class="nextmonth">
+			<form id="next" method="post" action="/next">
+				<input type="hidden" th:value="${nowYear}+'/'+${nowMonth}" />
+				<input type="submit" th:value="＞"/>
+			</form>
+		</div>
 	</div>
-	
-	
+
+
 	<div>
 		<table class="opeHisTbl">
 			<tr>
