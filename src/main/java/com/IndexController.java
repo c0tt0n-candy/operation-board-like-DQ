@@ -82,16 +82,16 @@ public class IndexController {
 	@RequestMapping(value = "/previous")
 	public String getPrevious(Model model, @RequestParam("previous") String previous) {
 		String[] prev = previous.split("/");
-		
 		int prevYear = Integer.parseInt(prev[0]);
 		int prevMonth = Integer.parseInt(prev[1]);
-		
-	// カレンダー取得
-		Calendar calendar = Calendar.getInstance();
-		
+		if(prevMonth == 1){
+			prevYear -= 1;
+			prevMonth = 12;
+		}
 		model.addAttribute("nowYear",prevYear);
 		model.addAttribute("nowMonth",prevMonth);
 		
+		Calendar calendar = Calendar.getInstance();
 		calendar.set(prevYear,prevMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay",lastDay);
@@ -111,13 +111,14 @@ public class IndexController {
 		
 		int nexYear = Integer.parseInt(nex[0]);
 		int nexMonth = Integer.parseInt(nex[1]);
-		
-	// カレンダー取得
-		Calendar calendar = Calendar.getInstance();
-		
+		if(nexMonth == 12){
+			nexYear += 1;
+			nexMonth = 1;
+		}
 		model.addAttribute("nowYear",nexYear);
 		model.addAttribute("nowMonth",nexMonth);
 		
+		Calendar calendar = Calendar.getInstance();
 		calendar.set(nexYear,nexMonth-1,1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay",lastDay);
