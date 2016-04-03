@@ -32,10 +32,14 @@ public class IndexController {
 		model.addAttribute("lastDay",lastDay);
 		
 	// 現在選択中のさくせんがあればそのnumberを送る.
-		String content = jdbcTemplate.queryForObject("select content from operation_history_Tbl where year=? and month=? and day=?", String.class,
+		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_Tbl where year=? and month=? and day=?",
+				Integer.class, nowYear, nowMonth, nowDay);
+		if (count == 1) {
+			String content = jdbcTemplate.queryForObject("select content from operation_history_Tbl where year=? and month=? and day=?", String.class,
 				nowYear,nowMonth,nowDay);
-		int number = jdbcTemplate.queryForObject("select number from operation_List where content=?", Integer.class,content);
-		model.addAttribute("number",number);
+			int number = jdbcTemplate.queryForObject("select number from operation_List where content=?", Integer.class,content);
+			model.addAttribute("number",number);
+		}
 		
 	// operation_history_Tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_Tbl where year=? and month=? order by day",
