@@ -72,14 +72,14 @@ $(document).ready(function(){
 			<tr>
 				<td class="cells">
 					<table class="leftTbl">
-						<tr th:each="i:${#numbers.sequence(1, 31)}">
+						<tr th:each="i:${#numbers.sequence(1, lastDay)}">
 							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
 						</tr>
 					</table>
 				</td>
 				<td class="cells">
 					<table class="rightTbl">
-						<tr th:each="i:${#numbers.sequence(1, 31)}">
+						<tr th:each="i:${#numbers.sequence(1, lastDay)}">
 							<td class="opeHisOpe" align="center">
 								<div th:each="opeHis:${history}" th:if="${opeHis.day EQ i}" th:text="${opeHis.content}">
 								</div>
