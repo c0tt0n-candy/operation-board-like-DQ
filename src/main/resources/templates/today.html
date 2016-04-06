@@ -22,7 +22,7 @@ $(document).ready(function(){
 			$("#operationForm").trigger("submit");
 		});
 	});
-	
+
 </script>
 </head>
 
@@ -67,7 +67,7 @@ $(document).ready(function(){
 				<input type="submit" th:value="＜" />
 			</form>
 		</div>
-		<div class="currentmonth" th:text="${dispYear}+年+${dispMonth}+月"></div>
+		<div class="currentmonth" th:text="${dispYear}+年+' '+${dispMonth}+月"></div>
 		<div class="nextmonth">
 			<form method="get" action="/next">
 				<input type="hidden" name="next" th:value="${dispYear}+'/'+(${dispMonth}+1)" />
