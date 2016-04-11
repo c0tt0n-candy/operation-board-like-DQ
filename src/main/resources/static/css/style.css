@@ -88,31 +88,34 @@
 
 /* åªç›ï\é¶íÜÇÃîNåédivì‡ÇÃóvëf */
 .month {
-	width: 260px;
-	height: 50px;
-	margin: 0 auto;
+	width: 300px;
+	height: 60px;
+	margin: auto;
 }
 .lastmonth {
 	width: 100px;
-	height: 50px;
+	height: 60px;
 	float: left;
+	font-size: 40px;
 	text-align: center;
 }
 .currentmonth {
-	width: 60px;
-	height: 50px;
+	width: 100px;
+	height: 60px;
 	float: left;
+	font-size: 30px;
 	text-align: center;
 }
 .nextmonth {
 	width: 100px;
-	height: 50px;
+	height: 60px;
 	float: left;
+	font-size: 40px;
 	text-align: center;
 }
 .month input[type="submit"] {
 	position: relative;
-	top: 8px;
+	top: 2px;
 	font-size: larger;
 
 	border: none;
