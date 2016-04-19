@@ -1,14 +1,14 @@
 package com;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class OperationBoardApplication implements CommandLineRunner {
@@ -22,7 +22,7 @@ public class OperationBoardApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-/*
+
 		jdbcTemplate.execute("drop table operation_List if exists");
 		jdbcTemplate
 				.execute("create table operation_List(number integer, content varchar, primary key(number))");
@@ -34,6 +34,6 @@ public class OperationBoardApplication implements CommandLineRunner {
 		jdbcTemplate.execute("drop table operation_history_Tbl if exists");
 		jdbcTemplate.execute(
 				"create table operation_history_Tbl(year integer, month integer, day integer, content varchar, primary key(year,month,day))");
-*/
+
 	}
 }
