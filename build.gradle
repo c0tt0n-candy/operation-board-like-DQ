@@ -34,12 +34,11 @@ dependencies {
 	compile("org.codehaus.jackson:jackson-mapper-asl:1.9.13")
 
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
-	//compile("org.springframework:spring-jdbc")
+	compile("postgresql:postgresql:9.1-901-1.jdbc4")
 	compile("com.h2database:h2")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
-
 
 eclipse {
 	classpath {
