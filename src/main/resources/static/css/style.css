@@ -7,7 +7,6 @@ body{
 	width: 600px;
 	height: 400px;
 	margin: 0 auto;
-	background-color: #000000;
 	position: relative;
 }
 #operation {
@@ -15,13 +14,13 @@ body{
 	top: -60px;
 	left: 50px;
 	color: #ffffff;
-	background-color: #000000;
 	font-size: 60px;
 	width: 240px;
 	height: 60px;
 	z-index: 1;
 	padding-left: 3px;
 	padding-right: 3px;
+	background-color: #000000;
 }
 #line {
 	position: absolute;
@@ -143,9 +142,10 @@ body{
 	margin: -2px;
 }
 .opeHisDay {
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	color: #ffffff;
+	font-size: 25px;
 	border: 1px solid;
 	border-color: #ffffff;
 }
@@ -154,9 +154,10 @@ body{
 	margin: -2px;
 }
 .opeHisOpe {
-	width: 200px;
-	height: 30px;
+	width: 250px;
+	height: 40px;
 	color: #ffffff;
+	font-size: 25px;
 	border: 1px solid;
 	border-color: #ffffff;
 }
