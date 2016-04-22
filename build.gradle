@@ -14,7 +14,6 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-//apply plugin: 'application'
 
 jar {
 	baseName = 'operation_board'
@@ -35,6 +34,7 @@ dependencies {
 
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
 	compile("org.postgresql:postgresql:9.4.1208.jre7")
+	compile("postgresql:postgresql:9.1-901-1.jdbc4")
 	//compile("com.h2database:h2")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -54,4 +54,3 @@ task stage {
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
 }
-
