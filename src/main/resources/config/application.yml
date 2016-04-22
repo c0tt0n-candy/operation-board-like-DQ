@@ -4,7 +4,12 @@ spring:
     template:
         cache: false
     datasource:
-        driverClassName: org.h2.Driver
-        url: jdbc:h2:file:./db/test
-        username: sa
-        password:
+#        driverClassName: org.h2.Driver
+#        url: jdbc:h2:file:./db/test
+#        username: sa
+#        password:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/operation_board
+        username: postgres
+        password: yokuboga
+
