@@ -1,1 +1,1 @@
-web: java -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar --server.port=$PORT --spring.profiles.active=heroku $JAVA_OPTS -Ddb.default.driver=org.postgresql.Driver
+web: java -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar --server.port=$PORT --spring.profiles.active=heroku $JAVA_OPTS -Djdbc.drivers=org.postgresql.Driver
