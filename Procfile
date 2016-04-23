@@ -1,1 +1,1 @@
-web: java --spring.profiles.active=heroku -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar
+web: java --spring.profiles.active=heroku --server.port=$PORT $JAVA_OPTS -Djdbc.drivers=org.postgresql.Driver -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar
