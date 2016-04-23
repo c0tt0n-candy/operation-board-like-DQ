@@ -16,3 +16,5 @@ spring:
   profiles: heroku
   datasource:
         driverClassName: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
