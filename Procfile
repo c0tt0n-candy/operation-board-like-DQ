@@ -1,1 +1,1 @@
-web: java --spring.profiles.active=heroku -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar
+web: java --spring.profiles.active=heroku -jar build/libs/operation_board-0.0.1-SNAPSHOT.jar
