@@ -16,6 +16,6 @@ spring:
   profiles: heroku
   datasource:
         driverClassName: org.postgresql.Driver
-        url: postgres://gklltqdsbmtciq:NiC5hEjrCvj-K3KWE8V2xW8uPR@ec2-23-21-167-249.compute-1.amazonaws.com:5432/d3q7dnfb7uf3o1
+        url: jdbc:postgres://gklltqdsbmtciq:NiC5hEjrCvj-K3KWE8V2xW8uPR@ec2-23-21-167-249.compute-1.amazonaws.com:5432/d3q7dnfb7uf3o1
         username: gklltqdsbmtciq
         password: NiC5hEjrCvj-K3KWE8V2xW8uPR
