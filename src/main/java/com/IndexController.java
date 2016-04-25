@@ -144,16 +144,16 @@ public class IndexController {
 
 	@RequestMapping(value = "/next")
 	public String getNext(Model model, @RequestParam("next") String next) {
-		String[] nex = next.split("/");
+		String[] Next = next.split("/");
 
-		int nexYear = Integer.parseInt(nex[0]);
-		int nexMonth = Integer.parseInt(nex[1]);
-		if (nexMonth == 13) {
-			nexYear += 1;
-			nexMonth = 1;
+		int nextYear = Integer.parseInt(Next[0]);
+		int nextMonth = Integer.parseInt(Next[1]);
+		if (nextMonth == 13) {
+			nextYear += 1;
+			nextMonth = 1;
 		}
-		model.addAttribute("dispYear", nexYear);
-		model.addAttribute("dispMonth", nexMonth);
+		model.addAttribute("dispYear", nextYear);
+		model.addAttribute("dispMonth", nextMonth);
 
 		Calendar calendar = Calendar.getInstance();
 
@@ -173,14 +173,14 @@ public class IndexController {
 			model.addAttribute("number", number);
 		}
 
-		calendar.set(nexYear, nexMonth - 1, 1);
+		calendar.set(nextYear, nextMonth - 1, 1);
 		int lastDay = calendar.getActualMaximum(Calendar.DATE);
 		model.addAttribute("lastDay", lastDay);
 
 		// operation_history_tblから過去の履歴を取得する.
 		List<Operation> operationHistory = jdbcTemplate.query(
 				"select day, content from operation_history_tbl where year=? and month=? order by day",
-				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nexYear, nexMonth);
+				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nextYear, nextMonth);
 
 		model.addAttribute("history", operationHistory);
 
