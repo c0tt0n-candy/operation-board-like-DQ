@@ -77,63 +77,19 @@ $(document).ready(function(){
 	</div>
 
 
-	<div class="opeHisTbl">
-		<table class="opeHisTbl1">
+	<div>
+		<table class="opeHisTbl">
 			<tr>
 				<td class="cells">
 					<table class="leftTbl">
-						<tr th:each="i:${#numbers.sequence(1, 10)}">
+						<tr th:each="i:${#numbers.sequence(1, lastDay)}">
 							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
 						</tr>
 					</table>
 				</td>
 				<td class="cells">
 					<table class="rightTbl">
-						<tr th:each="i:${#numbers.sequence(1, 10)}">
-							<td class="opeHisOpe" align="center">
-								<div th:each="opeHis:${history}" th:if="${opeHis.day EQ i}" th:text="${opeHis.content}">
-								</div>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-
-		<table class="opeHisTbl2">
-			<tr>
-				<td class="cells">
-					<table class="leftTbl">
-						<tr th:each="i:${#numbers.sequence(11, 20)}">
-							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
-						</tr>
-					</table>
-				</td>
-				<td class="cells">
-					<table class="rightTbl">
-						<tr th:each="i:${#numbers.sequence(11, 20)}">
-							<td class="opeHisOpe" align="center">
-								<div th:each="opeHis:${history}" th:if="${opeHis.day EQ i}" th:text="${opeHis.content}">
-								</div>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-
-		<table class="opeHisTbl3">
-			<tr>
-				<td class="cells">
-					<table class="leftTbl">
-						<tr th:each="i:${#numbers.sequence(21, lastDay)}">
-							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
-						</tr>
-					</table>
-				</td>
-				<td class="cells">
-					<table class="rightTbl">
-						<tr th:each="i:${#numbers.sequence(21, lastDay)}">
+						<tr th:each="i:${#numbers.sequence(1, lastDay)}">
 							<td class="opeHisOpe" align="center">
 								<div th:each="opeHis:${history}" th:if="${opeHis.day EQ i}" th:text="${opeHis.content}">
 								</div>

@@ -130,23 +130,8 @@ body{
 
 /* ‰ß‹‚Ììí—š—ğdiv“à‚Ì—v‘f */
 .opeHisTbl {
-	width: 911px;
-	height: 474px;
-	margin: auto;
-}
-.opeHisTbl1 {
 	border-collapse: collapse;
-	float: left;
-}
-.opeHisTbl2 {
-	border-collapse: collapse;
-	margin-left: 10px;
-	float: left;
-}
-.opeHisTbl3 {
-	border-collapse: collapse;
-	margin-left: 10px;
-	float: left;
+	margin: 0 auto;
 }
 .cells {
 	border: 1px solid;
