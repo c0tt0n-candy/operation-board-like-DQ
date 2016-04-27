@@ -6,9 +6,8 @@ body{
 .operationList {
 	width: 600px;
 	height: 400px;
-	margin-top: 60px;
+	margin: 0 auto;
 	position: relative;
-	float: left;
 }
 #operation {
 	position: absolute;
@@ -91,16 +90,11 @@ body{
 }
 
 /* åªç›ï\é¶íÜÇÃîNåédivì‡ÇÃóvëf */
-.history{
-	width: 930px;
-	height: 550px;
-	float: left;
-}
 .month {
 	width: 300px;
 	height: 60px;
 	margin: auto;
-	padding-bottom: 18px;
+	padding-bottom: 5px;
 }
 .lastmonth {
 	width: 100px;
@@ -138,7 +132,6 @@ body{
 .opeHisTbl {
 	width: 911px;
 	height: 474px;
-	float: left;
 	margin: auto;
 }
 .opeHisTbl1 {
