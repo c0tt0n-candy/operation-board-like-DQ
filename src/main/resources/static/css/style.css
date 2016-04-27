@@ -6,6 +6,7 @@ body{
 .operationList {
 	width: 600px;
 	height: 400px;
+	margin-left: -20px;
 	margin-top: 60px;
 	position: relative;
 	float: left;
@@ -92,7 +93,7 @@ body{
 
 /* åªç›ï\é¶íÜÇÃîNåédivì‡ÇÃóvëf */
 .history{
-	width: 930px;
+	width: 745px;
 	height: 550px;
 	float: left;
 }
@@ -164,7 +165,7 @@ body{
 	margin: -2px;
 }
 .opeHisDay {
-	width: 40px;
+	width: 36px;
 	height: 40px;
 	color: #ffffff;
 	font-size: 25px;
@@ -176,7 +177,7 @@ body{
 	margin: -2px;
 }
 .opeHisOpe {
-	width: 250px;
+	width: 200px;
 	height: 40px;
 	color: #ffffff;
 	font-size: 25px;
