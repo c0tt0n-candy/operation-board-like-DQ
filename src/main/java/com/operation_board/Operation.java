@@ -5,8 +5,11 @@ public class Operation {
 	private int year;
 	private int month;
 	private int day;
+	private int number;
 	private String content;
 
+	public Operation() {}
+	
 	public Operation(int year, int month, int day, String content) {
 		super();
 		this.year = year;
@@ -20,24 +23,39 @@ public class Operation {
 		this.day = day;
 		this.content = content;
 	}
+	
+	public Operation(String content, int number) {
+		super();
+		this.content = content;
+		this.number = number;
+	}
 
-	public int getYear(){
+	public int getYear() {
 		return year;
 	}
-	public void setYear(int year){
+	public void setYear(int year) {
 		this.year = year;
 	}
-	public int getMonth(){
+
+	public int getMonth() {
 		return month;
 	}
-	public void setMonth(int month){
+	public void setMonth(int month) {
 		this.month = month;
 	}
-	public int getDay(){
+
+	public int getDay() {
 		return day;
 	}
-	public void setDay(int day){
+	public void setDay(int day) {
 		this.day = day;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public String getContent() {
