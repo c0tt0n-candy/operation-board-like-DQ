@@ -4,7 +4,7 @@
 <head>
 <title>さくせん</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/styleDQ.css" />
 <script th:src="@{../js/jquery/jquery.js}"></script>
 
 <script type="text/javascript">
@@ -13,6 +13,8 @@ $(document).ready(function(){
 	if(checkNum != ""){
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
+	
+	
 });
 
 	$(function() {
@@ -22,7 +24,6 @@ $(document).ready(function(){
 			$("#operationForm").trigger("submit");
 		});
 	});
-
 </script>
 </head>
 
@@ -68,7 +69,7 @@ $(document).ready(function(){
 				<input type="submit" th:value="＜" />
 			</form>
 		</div>
-		<div class="currentmonth" th:text="${dispYear}+年+' '+${dispMonth}+月"></div>
+		<div class="currentmonth" th:text="${dispYear}+ねん+' '+${dispMonth}+がつ"></div>
 		<div class="nextmonth">
 			<form method="get" action="/next">
 				<input type="hidden" name="next" th:value="${dispYear}+'/'+(${dispMonth}+1)" />
@@ -84,7 +85,7 @@ $(document).ready(function(){
 				<td class="cells">
 					<table class="leftTbl">
 						<tr th:each="i:${#numbers.sequence(1, 10)}">
-							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
+							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" style="text-transform:full-width" />
 						</tr>
 					</table>
 				</td>
@@ -146,6 +147,5 @@ $(document).ready(function(){
 		</table>
 	</div>
 </div>
-
 </body>
 </html>

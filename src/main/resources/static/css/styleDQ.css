@@ -1,5 +1,11 @@
+@font-face {
+	font-family: "DQFont";
+	src: url("DQFont.ttf");
+}
+
 body{
 	background-color: #000000;
+	font-family: "DQFont";
 }
 
 /* さくせんリストdiv内の要素 */
@@ -20,8 +26,8 @@ body{
 	width: 240px;
 	height: 60px;
 	z-index: 1;
-	padding-left: 3px;
-	padding-right: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
 	background-color: #000000;
 }
 #line {
@@ -35,7 +41,7 @@ body{
 }
 .list {
 	position: absolute;
-	font-size: 55px;
+	font-size: 50px;
 	top: 40px;
 	left: 40px;
 	height: 300px;
@@ -59,7 +65,7 @@ body{
 	position: absolute;
 	top: 50%;
 	left: 0;
-	margin-top: -33px;
+	margin-top: -31px;
 }
 .label:hover:before {
 	content: "";
@@ -71,7 +77,7 @@ body{
 	position: absolute;
 	top: 50%;
 	left: 0;
-	margin-top: -33px;
+	margin-top: -31px;
 	cursor: pointer;
 }
 .check input[type="radio"]:checked+label:after {
@@ -84,7 +90,7 @@ body{
 	position: absolute;
 	top: 50%;
 	left: 0;
-	margin-top: -33px;
+	margin-top: -31px;
 	cursor: default;
 }
 .DQ {
@@ -98,7 +104,7 @@ body{
 	float: left;
 }
 .month {
-	width: 300px;
+	width: 320px;
 	height: 60px;
 	margin: auto;
 	padding-bottom: 18px;
@@ -111,7 +117,7 @@ body{
 	text-align: center;
 }
 .currentmonth {
-	width: 100px;
+	width: 120px;
 	height: 60px;
 	float: left;
 	font-size: 30px;
@@ -133,6 +139,9 @@ body{
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+}
+.month input[type="submit"]:focus {
+	outline: none;
 }
 
 /* 過去の作戦履歴div内の要素 */
@@ -180,7 +189,13 @@ body{
 	width: 200px;
 	height: 40px;
 	color: #ffffff;
-	font-size: 25px;
+	font-size: 23px;
 	border: 1px solid;
 	border-color: #ffffff;
+}
+
+#test {
+	font-size: 30px;
+	color: #ffffff;
+	z-index: 5;
 }
