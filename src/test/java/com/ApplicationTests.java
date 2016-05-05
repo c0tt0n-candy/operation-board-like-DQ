@@ -6,10 +6,13 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.operation_board.Application;
+import com.operation_board.controller.IndexController;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OperationBoardApplication.class)
+@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class OperationBoardApplicationTests extends IndexController {
+public class ApplicationTests extends IndexController {
 
 //	@Autowired
 //	Operation operation;

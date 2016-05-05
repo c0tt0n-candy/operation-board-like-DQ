@@ -1,4 +1,4 @@
-package com;
+package com.operation_board.controller;
 
 import java.util.Calendar;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.operation_board.Operation;
 
 @Controller
 public class IndexController {

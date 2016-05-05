@@ -1,4 +1,4 @@
-package com;
+package com.operation_board;
 
 import java.net.URI;
 import java.net.URISyntaxException;
