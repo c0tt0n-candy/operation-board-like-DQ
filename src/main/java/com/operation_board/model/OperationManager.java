@@ -27,22 +27,55 @@ public class OperationManager {
 	}
 
 	public Operation getOneOperation(int year, int month, int day) {
-		Operation opeartion = jdbcTemplate.queryForObject("select * from operation_history_tbl where year=? and month=? and day=?", new OperationRowMapper(), year, month, day);
-		return opeartion;
+		int count = countOperation(year, month, day);
+		Operation operation = null;
+		if (count == 1) {
+			operation = jdbcTemplate.queryForObject("select * from operation_history_tbl where year=? and month=? and day=?", new OperationRowMapper(), year, month, day);
+		}
+		return operation;
 	}
 
 	public void addOperation(Operation operation) {
+		String content = jdbcTemplate.queryForObject("select content from operation_list where number=?", String.class, operation.getNumber());
 		int count = jdbcTemplate.queryForObject(
-				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class, operation.getYear(),
-				operation.getMonth(), operation.getDay());
+				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class,
+				getCalendar.getNowYear(), getCalendar.getNowMonth(), getCalendar.getNowDay());
 		if (count == 0) {
-			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)", operation.getYear(),
-					operation.getMonth(), operation.getDay(), operation.getContent());
+			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)", getCalendar.getNowYear(),
+					getCalendar.getNowMonth(), getCalendar.getNowDay(), content);
 		} else {
 			jdbcTemplate.update("update operation_history_tbl set content=? where year=? and month=? and day=?",
-					operation.getContent(), operation.getYear(), operation.getMonth(), operation.getDay());
+					content, getCalendar.getNowYear(), getCalendar.getNowMonth(), getCalendar.getNowDay());
 		}
 	}
+
+
+	public int countOperation(int year, int month, int day) {
+		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_tbl where year=? and month=? and day=?",
+				Integer.class, year, month, day);
+		return count;
+	}
+
+	public int getOperationNum(int year, int month, int day) {
+		int number = 0;
+		if (countOperation(year, month, day) == 1) {
+			String content = jdbcTemplate.queryForObject("select content from operation_history_tbl where year=? and month=? and day=?", String.class, year, month, day);
+			number = jdbcTemplate.queryForObject("select number from operation_list where content=?", Integer.class, content);
+		}
+		return number;
+	}
+
+	public String getOperationContent(int number) {
+		String content = jdbcTemplate.queryForObject("select content from operation_list where number=?", String.class, number);
+		return content;
+	}
+
+	public List<Operation> getOperationHistory(int year, int month) {
+		List<Operation> operationHistory = jdbcTemplate.query("select day, content from operation_history_tbl where year=? and month=? order by day",
+				new OperationHistoryRowMapper(), year, month);
+		return operationHistory;
+	}
+
 
 	private class OperationListRowMapper implements RowMapper<Operation>{
 		@Override
@@ -63,4 +96,14 @@ public class OperationManager {
 			return new Operation(year, month, day, content);
 		}
 	}
+
+	private class OperationHistoryRowMapper implements RowMapper<Operation> {
+		@Override
+		public Operation mapRow(ResultSet rs, int rowNum) throws SQLException {
+			int day = rs.getInt("day");
+			String content = rs.getString("content");
+			return new Operation(day, content);
+		}
+	}
+
 }

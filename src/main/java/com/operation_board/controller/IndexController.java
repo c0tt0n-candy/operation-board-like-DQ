@@ -1,192 +1,111 @@
 package com.operation_board.controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.operation_board.Operation;
+import com.operation_board.model.OperationManager;
+import com.operation_board.model.getCalendar;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	@Autowired
+	OperationManager operationManager;
+
+	final int nowYear = getCalendar.getNowYear();
+	final int nowMonth = getCalendar.getNowMonth();
+	final int nowDay = getCalendar.getNowDay();
 
 	@RequestMapping(value = "/")
-	public String index(Model model) {
-
-		// カレンダー取得
-		Calendar calendar = Calendar.getInstance();
-		int nowYear = calendar.get(Calendar.YEAR);
-		int nowMonth = calendar.get(Calendar.MONTH) + 1;
-		int nowDay = calendar.get(Calendar.DATE);
-
+	public String index(@ModelAttribute Operation operation, Model model) {
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay);
+		int lastDay = getCalendar.getLastDay(nowYear, nowMonth, nowDay);
 		model.addAttribute("dispYear", nowYear);
 		model.addAttribute("dispMonth", nowMonth);
-
-		calendar.set(nowYear, nowMonth - 1, 1);
-		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		model.addAttribute("number", number);
 		model.addAttribute("lastDay", lastDay);
 
-		// 現在選択中のさくせんがあればそのnumberを送る.
-		int count = jdbcTemplate.queryForObject(
-				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class, nowYear,
-				nowMonth, nowDay);
-		if (count == 1) {
-			String content = jdbcTemplate.queryForObject(
-					"select content from operation_history_tbl where year=? and month=? and day=?", String.class,
-					nowYear, nowMonth, nowDay);
-			int number = jdbcTemplate.queryForObject("select number from operation_list where content=?", Integer.class,
-					content);
-			model.addAttribute("number", number);
-		}
-
-		// operation_history_tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query(
-				"select day, content from operation_history_tbl where year=? and month=? order by day",
-				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nowYear, nowMonth);
-
+		List<Operation> operationHistory = operationManager.getOperationHistory(nowYear, nowMonth);
 		model.addAttribute("history", operationHistory);
 
+		operation.setYear(nowYear);
+		operation.setMonth(nowMonth);
+		operation.setDay(nowDay);
+		operation.setNumber(number);
+		model.addAttribute("ope", operation);
 		return "today";
 	}
 
 	@RequestMapping(value = "/today")
-	public String update(Model model, @RequestParam("number") String str_number) {
-		int number = Integer.parseInt(str_number);
+	public String update(Operation operation, Model model, @RequestParam("number") int number) {
 		model.addAttribute("number", number);
 
-		// カレンダー取得
-		Calendar calendar = Calendar.getInstance();
-		int nowYear = calendar.get(Calendar.YEAR);
-		int nowMonth = calendar.get(Calendar.MONTH) + 1;
-		int nowDay = calendar.get(Calendar.DATE);
-
-		model.addAttribute("dispYear", nowYear);
-		model.addAttribute("dispMonth", nowMonth);
-
-		calendar.set(nowYear, nowMonth - 1, 1);
-		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		int lastDay = getCalendar.getLastDay(dispYear, dispMonth, nowDay);
+		model.addAttribute("dispYear", dispYear);
+		model.addAttribute("dispMonth", dispMonth);
 		model.addAttribute("lastDay", lastDay);
 
-		// operation_listからnumberに対応したさくせんを得,operation_history_tblを更新する.
-		String content = jdbcTemplate.queryForObject("select content from operation_list where number=?", String.class,
-				number);
+		operation.setNumber(number);
+		operationManager.addOperation(operation);
 
-		int count = jdbcTemplate.queryForObject(
-				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class, nowYear,
-				nowMonth, nowDay);
-		if (count == 0) {
-			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)", nowYear,
-					nowMonth, nowDay, content);
-		} else {
-			jdbcTemplate.update("update operation_history_tbl set content=? where year=? and month=? and day=?",
-					content, nowYear, nowMonth, nowDay);
-		}
-
-		// operation_history_tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query(
-				"select day, content from operation_history_tbl where year=? and month=? order by day",
-				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nowYear, nowMonth);
-
+		List<Operation> operationHistory = operationManager.getOperationHistory(dispYear, dispMonth);
 		model.addAttribute("history", operationHistory);
 
-		return "today";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/previous")
-	public String getPrevious(Model model, @RequestParam("previous") String previous) {
-		String[] prev = previous.split("/");
-		int prevYear = Integer.parseInt(prev[0]);
-		int prevMonth = Integer.parseInt(prev[1]);
-		if (prevMonth == 0) {
-			prevYear -= 1;
-			prevMonth = 12;
-		}
-		model.addAttribute("dispYear", prevYear);
-		model.addAttribute("dispMonth", prevMonth);
-
-		Calendar calendar = Calendar.getInstance();
-
-		// 現在選択中のさくせんがあればそのnumberを送る.
-		int nowYear = calendar.get(Calendar.YEAR);
-		int nowMonth = calendar.get(Calendar.MONTH) + 1;
-		int nowDay = calendar.get(Calendar.DATE);
-		int count = jdbcTemplate.queryForObject(
-				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class, nowYear,
-				nowMonth, nowDay);
-		if (count == 1) {
-			String content = jdbcTemplate.queryForObject(
-					"select content from operation_history_tbl where year=? and month=? and day=?", String.class,
-					nowYear, nowMonth, nowDay);
-			int number = jdbcTemplate.queryForObject("select number from operation_list where content=?", Integer.class,
-					content);
-			model.addAttribute("number", number);
+	public String getPrevious(Operation operation, Model model, @RequestParam("year") int year, @RequestParam("month") int month) {
+		if (month == 0) {
+			year -= 1;
+			month = 12;
 		}
 
-		calendar.set(prevYear, prevMonth - 1, 1);
-		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay);
+
+		model.addAttribute("dispYear", year);
+		model.addAttribute("dispMonth", month);
+		model.addAttribute("number", number);
+
+		int lastDay = getCalendar.getLastDay(year, month, 1);
 		model.addAttribute("lastDay", lastDay);
 
-		// operation_history_tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query(
-				"select day, content from operation_history_tbl where year=? and month=? order by day",
-				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), prevYear, prevMonth);
-
+		List<Operation> operationHistory = operationManager.getOperationHistory(year, month);
 		model.addAttribute("history", operationHistory);
 
-		return "today";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/next")
-	public String getNext(Model model, @RequestParam("next") String next) {
-		String[] Next = next.split("/");
-
-		int nextYear = Integer.parseInt(Next[0]);
-		int nextMonth = Integer.parseInt(Next[1]);
-		if (nextMonth == 13) {
-			nextYear += 1;
-			nextMonth = 1;
-		}
-		model.addAttribute("dispYear", nextYear);
-		model.addAttribute("dispMonth", nextMonth);
-
-		Calendar calendar = Calendar.getInstance();
-
-		// 現在選択中のさくせんがあればそのnumberを送る.
-		int nowYear = calendar.get(Calendar.YEAR);
-		int nowMonth = calendar.get(Calendar.MONTH) + 1;
-		int nowDay = calendar.get(Calendar.DATE);
-		int count = jdbcTemplate.queryForObject(
-				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class, nowYear,
-				nowMonth, nowDay);
-		if (count == 1) {
-			String content = jdbcTemplate.queryForObject(
-					"select content from operation_history_tbl where year=? and month=? and day=?", String.class,
-					nowYear, nowMonth, nowDay);
-			int number = jdbcTemplate.queryForObject("select number from operation_list where content=?", Integer.class,
-					content);
-			model.addAttribute("number", number);
+	public String getNext(Operation operation, Model model, @RequestParam("year") int year, @RequestParam("month") int month) {
+		if (month == 13) {
+			year += 1;
+			month = 1;
 		}
 
-		calendar.set(nextYear, nextMonth - 1, 1);
-		int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay);
+
+		model.addAttribute("dispYear", year);
+		model.addAttribute("dispMonth", month);
+		model.addAttribute("number", number);
+
+		int lastDay = getCalendar.getLastDay(year, month, 1);
 		model.addAttribute("lastDay", lastDay);
 
-		// operation_history_tblから過去の履歴を取得する.
-		List<Operation> operationHistory = jdbcTemplate.query(
-				"select day, content from operation_history_tbl where year=? and month=? order by day",
-				(rs, rowNum) -> new Operation(rs.getInt("day"), rs.getString("content")), nextYear, nextMonth);
-
+		List<Operation> operationHistory = operationManager.getOperationHistory(year, month);
 		model.addAttribute("history", operationHistory);
 
-		return "today";
+		return "redirect:/";
 	}
 
 }

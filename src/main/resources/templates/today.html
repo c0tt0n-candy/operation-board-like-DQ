@@ -13,15 +13,11 @@ $(document).ready(function(){
 	if(checkNum != ""){
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
-	
-	
 });
 
 	$(function() {
 		$("input[name='number']").change(function() {
-			var num = $('[name=number]:checked').val();
-			$("#operationForm").attr("action", $("#operationForm").attr("action")+"?number"+num);
-			$("#operationForm").trigger("submit");
+			$("#operationForm").submit();
 		});
 	});
 </script>
@@ -58,6 +54,13 @@ $(document).ready(function(){
 		</div>
 	</div>
 
+
+<input th:value="${ope.year}" />
+<input th:value="${ope.month}" />
+<input th:value="${ope.day}" />
+<input th:value="${ope.content}" />
+<input th:value="${ope.number}" />
+
 	<!-- 選択したさくせんのnumberを受け取る -->
 		<input type="hidden" id="operationNum" th:value="${number}" />
 
@@ -65,14 +68,16 @@ $(document).ready(function(){
 	<div class="month">
 		<div class="lastmonth">
 			<form method="get" action="/previous">
-				<input type="hidden" name="previous" th:value="${dispYear}+'/'+(${dispMonth}-1)" />
+				<input type="hidden" name="year" th:value="${dispYear}" />
+				<input type="hidden" name="month" th:value="${dispMonth}-1" />
 				<input type="submit" th:value="＜" />
 			</form>
 		</div>
 		<div class="currentmonth" th:text="${dispYear}+ねん+' '+${dispMonth}+がつ"></div>
 		<div class="nextmonth">
 			<form method="get" action="/next">
-				<input type="hidden" name="next" th:value="${dispYear}+'/'+(${dispMonth}+1)" />
+				<input type="hidden" name="year" th:value="${dispYear}" />
+				<input type="hidden" name="month" th:value="${dispMonth}+1" />
 				<input type="submit" th:value="＞" />
 			</form>
 		</div>
@@ -85,7 +90,7 @@ $(document).ready(function(){
 				<td class="cells">
 					<table class="leftTbl">
 						<tr th:each="i:${#numbers.sequence(1, 10)}">
-							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" style="text-transform:full-width" />
+							<td class="opeHisDay" align="center" th:value="${i}" th:text="${i}" />
 						</tr>
 					</table>
 				</td>
