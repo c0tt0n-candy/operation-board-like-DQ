@@ -53,7 +53,7 @@ public class IndexController {
 		attributes.addFlashAttribute("dispMonth", dispMonth);
 		attributes.addFlashAttribute("lastDay",lastDay);
 		attributes.addFlashAttribute("history", operationHistory);
-		return "redirect:/today";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/previous")
