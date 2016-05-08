@@ -41,7 +41,7 @@ public class OperationManager {
 				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class,
 				operation.getYear(), operation.getMonth(), operation.getDay());
 		if (count == 0) {
-			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)", getCalendar.getNowYear(),
+			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)",
 					operation.getYear(), operation.getMonth(), operation.getDay(), content);
 		} else {
 			jdbcTemplate.update("update operation_history_tbl set content=? where year=? and month=? and day=?",
