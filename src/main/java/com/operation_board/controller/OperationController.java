@@ -19,7 +19,7 @@ import com.operation_board.model.OperationManager;
 public class OperationController {
 	@Autowired
 	OperationManager operationManager;
-	
+
 	// OperationList全件取得
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	List<Operation> getList() {
@@ -46,5 +46,12 @@ public class OperationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	void add(@RequestBody Operation operation) {
 		operationManager.addOperation(operation);
+	}
+
+	// Operation1件削除
+	@RequestMapping(value = "{year}/{month}/{day}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void delete(@PathVariable("year") int year,@PathVariable("month") int month,@PathVariable("day") int day) {
+		operationManager.deleteOperation(year, month ,day);
 	}
 }

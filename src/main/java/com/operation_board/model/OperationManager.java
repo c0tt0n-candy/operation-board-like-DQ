@@ -49,6 +49,13 @@ public class OperationManager {
 		}
 	}
 
+	public void deleteOperation(int year, int month, int day) {
+		int count = countOperation(year, month, day);
+		if(count != 0) {
+			jdbcTemplate.update("delete from operation_history_tbl where year=? and month=? and day=?", year, month, day);
+		}
+	}
+
 
 	public int countOperation(int year, int month, int day) {
 		int count = jdbcTemplate.queryForObject("select count(*) from operation_history_tbl where year=? and month=? and day=?",
