@@ -18,10 +18,8 @@ public class getCalendar {
 		return calendar.get(Calendar.DATE);
 	}
 
-	public static int getLastDay(int year, int month, int day) {
-		calendar.set(year, month - 1, day);
-		int lastDay = calendar.getActualMaximum(Calendar.DATE);
-		calendar.set(getNowYear(), getNowMonth() - 1, getNowDay());
-		return lastDay;
+	public static int getLastDay(int year, int month) {
+		calendar.set(year, month - 1, 1);
+		return calendar.getActualMaximum(Calendar.DATE);
 	}
 }

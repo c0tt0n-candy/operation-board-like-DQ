@@ -39,13 +39,13 @@ public class OperationManager {
 		String content = jdbcTemplate.queryForObject("select content from operation_list where number=?", String.class, operation.getNumber());
 		int count = jdbcTemplate.queryForObject(
 				"select count(*) from operation_history_tbl where year=? and month=? and day=?", Integer.class,
-				getCalendar.getNowYear(), getCalendar.getNowMonth(), getCalendar.getNowDay());
+				operation.getYear(), operation.getMonth(), operation.getDay());
 		if (count == 0) {
 			jdbcTemplate.update("insert into operation_history_tbl(year,month,day,content) values(?,?,?,?)", getCalendar.getNowYear(),
-					getCalendar.getNowMonth(), getCalendar.getNowDay(), content);
+					operation.getYear(), operation.getMonth(), operation.getDay(), content);
 		} else {
 			jdbcTemplate.update("update operation_history_tbl set content=? where year=? and month=? and day=?",
-					content, getCalendar.getNowYear(), getCalendar.getNowMonth(), getCalendar.getNowDay());
+					content, operation.getYear(), operation.getMonth(), operation.getDay());
 		}
 	}
 
@@ -57,7 +57,7 @@ public class OperationManager {
 	}
 
 	public int getOperationNum(int year, int month, int day) {
-		int number = 0;
+		int number = -1;
 		if (countOperation(year, month, day) == 1) {
 			String content = jdbcTemplate.queryForObject("select content from operation_history_tbl where year=? and month=? and day=?", String.class, year, month, day);
 			number = jdbcTemplate.queryForObject("select number from operation_list where content=?", Integer.class, content);
