@@ -10,7 +10,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var checkNum = $("#operationNum").val();
-	if(checkNum != -1){
+	if(checkNum == -1){
+		document.getElementsByName("number")[0].checked = false;
+		document.getElementsByName("number")[1].checked = false;
+		document.getElementsByName("number")[2].checked = false;
+		document.getElementsByName("number")[3].checked = false;
+	} else {
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
 });
