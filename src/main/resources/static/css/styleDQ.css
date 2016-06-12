@@ -131,7 +131,7 @@ body{
 	font-size: 40px;
 	text-align: center;
 }
-.month input[type="submit"] {
+.month input[type="button"] {
 	position: relative;
 	top: 2px;
 	font-size: larger;
@@ -140,7 +140,7 @@ body{
 	background-color: transparent;
 	cursor: pointer;
 }
-.month input[type="submit"]:focus {
+.month input[type="button"]:focus {
 	outline: none;
 }
 

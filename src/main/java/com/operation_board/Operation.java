@@ -1,15 +1,31 @@
 package com.operation_board;
 
 public class Operation {
-	
+
 	private int year;
 	private int month;
 	private int day;
 	private int number;
 	private String content;
+	int profile;
 
 	public Operation() {}
-	
+
+	public Operation(String content, int number) {
+		super();
+		this.content = content;
+		this.number = number;
+	}
+
+	public Operation(int year, int month, int day, String content, int profile) {
+		super();
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.content = content;
+		this.profile = profile;
+	}
+
 	public Operation(int year, int month, int day, String content) {
 		super();
 		this.year = year;
@@ -17,17 +33,18 @@ public class Operation {
 		this.day = day;
 		this.content = content;
 	}
-	
+
+	public Operation(int day, String content, int profile) {
+		super();
+		this.day = day;
+		this.content = content;
+		this.profile = profile;
+	}
+
 	public Operation(int day, String content) {
 		super();
 		this.day = day;
 		this.content = content;
-	}
-	
-	public Operation(String content, int number) {
-		super();
-		this.content = content;
-		this.number = number;
 	}
 
 	public int getYear() {
@@ -65,4 +82,10 @@ public class Operation {
 		this.content = content;
 	}
 
+	public int getProfile() {
+		return profile;
+	}
+	public void setProfile(int profile) {
+		this.profile = profile;
+	}
 }

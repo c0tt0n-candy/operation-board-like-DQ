@@ -14,9 +14,6 @@ import com.operation_board.controller.IndexController;
 @WebAppConfiguration
 public class ApplicationTests extends IndexController {
 
-//	@Autowired
-//	Operation operation;
-
 	@Test
 	public void testIndex(){
 

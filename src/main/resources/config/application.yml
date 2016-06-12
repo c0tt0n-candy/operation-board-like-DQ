@@ -2,7 +2,7 @@ spring:
     thymeleaf:
         cache: false
     profiles:
-      active: dev
+      active: heroku
 ---
 spring:
   profiles: dev
@@ -16,3 +16,7 @@ spring:
   profiles: heroku
   datasource:
         driverClassName: org.postgresql.Driver
+        # url以降テスト用
+        url: jdbc:postgresql://localhost:5432/operation_board
+        username: postgres
+        password: yokuboga

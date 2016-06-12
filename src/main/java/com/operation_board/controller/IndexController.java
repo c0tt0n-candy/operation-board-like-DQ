@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,82 +22,109 @@ public class IndexController {
 	@Autowired
 	OperationManager operationManager;
 
-	final int nowYear = getCalendar.getNowYear();
-	final int nowMonth = getCalendar.getNowMonth();
-	final int nowDay = getCalendar.getNowDay();
-	
-	@RequestMapping(value = "/")
-	public String index(Operation operation, Model model) {
+	static int nowYear = getCalendar.getNowYear();
+	static int nowMonth = getCalendar.getNowMonth();
+	static int nowDay = getCalendar.getNowDay();
+
+	@RequestMapping(value = "/it")
+	public String indexIt(Operation operation, Model model) {
 		setDate(operation);
+		operation.setProfile(0);
 
 		int lastDay = getCalendar.getLastDay(nowYear, nowMonth);
-		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay);
-		List<Operation> operationHistory = operationManager.getOperationHistory(nowYear, nowMonth);
-
+		List<Operation> operationHistory = operationManager.getPeriodOperation(nowYear, nowMonth, operation.getProfile());
 		model.addAttribute("dispYear", nowYear);
 		model.addAttribute("dispMonth", nowMonth);
 		model.addAttribute("lastDay", lastDay);
-		model.addAttribute("number", number);
 		model.addAttribute("history", operationHistory);
-		
-		return "today";
+
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
+		model.addAttribute("number", number);
+
+		return "indexIt";
 	}
 
-	@RequestMapping(value = "/select")
-	public String update(Operation operation, RedirectAttributes attributes, @RequestParam("dispYear") int dispYear, @RequestParam("dispMonth") int dispMonth) {
+	@RequestMapping(value = "/it/select")
+	public String updateIt(Operation operation, RedirectAttributes attributes, @RequestParam("dispYear") int dispYear, @RequestParam("dispMonth") int dispMonth) {
 		setDate(operation);
-		operationManager.addOperation(operation);
+		operation.setProfile(0);
+		operationManager.updateOperation(operation);
 
 		int lastDay = getCalendar.getLastDay(dispYear, dispMonth);
-		List<Operation> operationHistory = operationManager.getOperationHistory(dispYear, dispMonth);
+		List<Operation> operationHistory = operationManager.getPeriodOperation(dispYear, dispMonth, operation.getProfile());
 		attributes.addFlashAttribute("dispYear", dispYear);
 		attributes.addFlashAttribute("dispMonth", dispMonth);
 		attributes.addFlashAttribute("lastDay",lastDay);
 		attributes.addFlashAttribute("history", operationHistory);
-		return "redirect:/";
+		return "redirect:/it";
 	}
 
-	@RequestMapping(value = "/previous")
-	public String getPrevious(Model model, RedirectAttributes attributes, @RequestParam("prevYear") int prevYear, @RequestParam("prevMonth") int prevMonth) {
-		if (prevMonth == 0) {
-			prevYear -= 1;
-			prevMonth = 12;
-		}
-		int lastDay = getCalendar.getLastDay(prevYear, prevMonth);
-		List<Operation> operationHistory = operationManager.getOperationHistory(prevYear, prevMonth);
-		attributes.addFlashAttribute("dispYear", prevYear);
-		attributes.addFlashAttribute("dispMonth", prevMonth);
-		attributes.addFlashAttribute("lastDay",lastDay);
-		attributes.addFlashAttribute("history", operationHistory);
+	@RequestMapping(value = "/it/{year}/{month}")
+	public String getPreviousIt(Operation operation, Model model, @PathVariable("year") int year, @PathVariable("month") int month) {
+		operation.setProfile(0);
 
-		return "redirect:/today";
+		int lastDay = getCalendar.getLastDay(year, month);
+		List<Operation> operationHistory = operationManager.getPeriodOperation(year, month, operation.getProfile());
+		model.addAttribute("dispYear", year);
+		model.addAttribute("dispMonth", month);
+		model.addAttribute("lastDay",lastDay);
+		model.addAttribute("history", operationHistory);
+
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
+		model.addAttribute("number", number);
+		return "IndexIt";
 	}
 
-	@RequestMapping(value = "/next")
-	public String getNext(Model model, RedirectAttributes attributes, @RequestParam("nextYear") int nextYear, @RequestParam("nextMonth") int nextMonth) {
-		if (nextMonth == 13) {
-			nextYear += 1;
-			nextMonth = 1;
-		}
-		int lastDay = getCalendar.getLastDay(nextYear, nextMonth);
-		List<Operation> operationHistory = operationManager.getOperationHistory(nextYear, nextMonth);
-		attributes.addFlashAttribute("dispYear", nextYear);
-		attributes.addFlashAttribute("dispMonth", nextMonth);
-		attributes.addFlashAttribute("lastDay",lastDay);
-		attributes.addFlashAttribute("history", operationHistory);
 
-		return "redirect:/today";
-	}
-	
-	@RequestMapping(value = "/today")
-	public String redirect(Operation operation, Model model) {
+	@RequestMapping(value = "/dev")
+	public String indexDev(Operation operation, Model model) {
 		setDate(operation);
-		int number = operationManager.getOperationNum(operation.getYear(), operation.getMonth(), operation.getDay());
+		operation.setProfile(1);
+
+		int lastDay = getCalendar.getLastDay(nowYear, nowMonth);
+		List<Operation> operationHistory = operationManager.getPeriodOperation(nowYear, nowMonth, operation.getProfile());
+		model.addAttribute("dispYear", nowYear);
+		model.addAttribute("dispMonth", nowMonth);
+		model.addAttribute("lastDay", lastDay);
+		model.addAttribute("history", operationHistory);
+
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
 		model.addAttribute("number", number);
 
-		return "today";
+		return "IndexDev";
 	}
-	
+
+	@RequestMapping(value = "/dev/select")
+	public String updateDev(Operation operation, RedirectAttributes attributes, @RequestParam("dispYear") int dispYear, @RequestParam("dispMonth") int dispMonth) {
+		setDate(operation);
+		operation.setProfile(1);
+		operationManager.updateOperation(operation);
+
+		int lastDay = getCalendar.getLastDay(dispYear, dispMonth);
+		List<Operation> operationHistory = operationManager.getPeriodOperation(dispYear, dispMonth, operation.getProfile());
+		attributes.addFlashAttribute("dispYear", dispYear);
+		attributes.addFlashAttribute("dispMonth", dispMonth);
+		attributes.addFlashAttribute("lastDay",lastDay);
+		attributes.addFlashAttribute("history", operationHistory);
+		return "redirect:/dev";
+	}
+
+	@RequestMapping(value = "/dev/{year}/{month}")
+	public String getPreviousDev(Operation operation, Model model, @PathVariable("year") int year, @PathVariable("month") int month) {
+		operation.setProfile(1);
+
+		int lastDay = getCalendar.getLastDay(year, month);
+		List<Operation> operationHistory = operationManager.getPeriodOperation(year, month, operation.getProfile());
+		model.addAttribute("dispYear", year);
+		model.addAttribute("dispMonth", month);
+		model.addAttribute("lastDay",lastDay);
+		model.addAttribute("history", operationHistory);
+
+		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
+		model.addAttribute("number", number);
+		return "indexDev";
+	}
+
 	public void setDate(Operation operation) {
 		operation.setYear(nowYear);
 		operation.setMonth(nowMonth);

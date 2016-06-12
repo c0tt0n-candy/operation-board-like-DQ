@@ -18,6 +18,7 @@ import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 public class AppConfig {
     @Autowired
     DataSourceProperties properties;
+    @Autowired
     DataSource dataSource;
 
     @Bean(destroyMethod = "close")
@@ -47,8 +48,8 @@ public class AppConfig {
         return this.dataSource;
     }
 
-    @Bean
     @Primary
+	@Bean
     DataSource dataSource() {
         return new Log4jdbcProxyDataSource(this.dataSource);
     }

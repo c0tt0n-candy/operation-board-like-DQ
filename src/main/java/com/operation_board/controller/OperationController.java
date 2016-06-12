@@ -27,31 +27,52 @@ public class OperationController {
 		return operationList;
 	}
 
-	// Operation全件取得
+	// OperationHistory全件取得
 	@RequestMapping(method = RequestMethod.GET)
 	List<Operation> getAll() {
-		List<Operation> operations = operationManager.getAllOperation();
-		return operations;
+		List<Operation> operationHistories = operationManager.getAllOperation();
+		return operationHistories;
 	}
 
-	// Operation1件取得
-	@RequestMapping(value = "{year}/{month}/{day}", method = RequestMethod.GET)
-	Operation getOne(@PathVariable int year, @PathVariable int month, @PathVariable int day) {
-		Operation operation = operationManager.getOneOperation(year, month, day);
+	// OperationHistory該当Profile全件取得
+	@RequestMapping(value = "{profile}", method = RequestMethod.GET)
+	List<Operation> getProfile(@PathVariable int profile) {
+		List<Operation> operationProfileHistories = operationManager.getProfileAllOperation(profile);
+		return operationProfileHistories;
+	}
+
+	// OperationHistory該当年月取得
+	@RequestMapping(value = "{year}/{month}", method = RequestMethod.GET)
+	List<Operation> getPeriod(@PathVariable int year, @PathVariable int month) {
+		List<Operation> operationHistory = operationManager.getPeriodOperation(year, month);
+		return operationHistory;
+	}
+
+	// OperationHistory該当Profile該当年月取得
+	@RequestMapping(value = "{profile}/{year}/{month}", method = RequestMethod.GET)
+	List<Operation> getProfilePeriod(@PathVariable int profile, @PathVariable int year, @PathVariable int month) {
+		List<Operation> operationProfileHistory = operationManager.getPeriodOperation(year, month, profile);
+		return operationProfileHistory;
+	}
+
+	// OperationHistory1件取得
+	@RequestMapping(value = "{profile}/{year}/{month}/{day}", method = RequestMethod.GET)
+	Operation getOne(@PathVariable int profile, @PathVariable int year, @PathVariable int month, @PathVariable int day) {
+		Operation operation = operationManager.getOneOperation(year, month, day, profile);
 		return operation;
 	}
 
 	// Operation新規作成
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	void add(@RequestBody Operation operation) {
-		operationManager.addOperation(operation);
+	void update(@RequestBody Operation operation) {
+		operationManager.updateOperation(operation);
 	}
 
 	// Operation1件削除
-	@RequestMapping(value = "{year}/{month}/{day}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "{profile}/{year}/{month}/{day}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void delete(@PathVariable("year") int year,@PathVariable("month") int month,@PathVariable("day") int day) {
-		operationManager.deleteOperation(year, month ,day);
+	void delete(@PathVariable int profile, @PathVariable int year,@PathVariable int month,@PathVariable int day) {
+		operationManager.deleteOperation(year, month ,day, profile);
 	}
 }
