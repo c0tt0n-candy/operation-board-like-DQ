@@ -72,7 +72,7 @@ public class IndexController {
 
 		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
 		model.addAttribute("number", number);
-		return "IndexIt";
+		return "indexIt";
 	}
 
 
@@ -91,7 +91,7 @@ public class IndexController {
 		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
 		model.addAttribute("number", number);
 
-		return "IndexDev";
+		return "indexDev";
 	}
 
 	@RequestMapping(value = "/dev/select")

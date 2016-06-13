@@ -2,7 +2,7 @@ spring:
     thymeleaf:
         cache: false
     profiles:
-      active: heroku
+      active: dev
 ---
 spring:
   profiles: dev
