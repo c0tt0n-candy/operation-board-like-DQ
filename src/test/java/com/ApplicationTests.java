@@ -16,7 +16,6 @@ public class ApplicationTests extends IndexController {
 
 	@Test
 	public void testIndex(){
-
 	}
 
 }
