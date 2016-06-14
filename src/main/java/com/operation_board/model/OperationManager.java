@@ -31,7 +31,7 @@ public class OperationManager {
 	}
 
 	// OperationHistory該当Profile全件取得
-	public List<Operation> getProfileAllOperation(int profile) {
+	public List<Operation> getProfileAllOperation(String profile) {
 		List<Operation> operationProfileHistories = jdbcTemplate.query(
 				"select year, month, day, content from operation_history_tbl where profile=?",
 				new OperationProfileHistoryRowMapper(), profile);
@@ -47,7 +47,7 @@ public class OperationManager {
 	}
 
 	// OperationHistory該当Profile該当年月取得
-	public List<Operation> getPeriodOperation(int year, int month, int profile) {
+	public List<Operation> getPeriodOperation(int year, int month, String profile) {
 		List<Operation> operationProfileHistory = jdbcTemplate.query(
 				"select day, content from operation_history_tbl where year=? and month=? and profile=? order by day",
 				new OperationProfilePeriodHistoryRowMapper(), year, month, profile);
@@ -55,7 +55,7 @@ public class OperationManager {
 	}
 
 	// OperationHistory1件取得
-	public Operation getOneOperation(int year, int month, int day, int profile) {
+	public Operation getOneOperation(int year, int month, int day, String profile) {
 		int count = countOperation(year, month, day, profile);
 		Operation operation = null;
 		if (count == 1) {
@@ -84,7 +84,7 @@ public class OperationManager {
 	}
 
 	// OperationHistory1件削除
-	public void deleteOperation(int year, int month, int day, int profile) {
+	public void deleteOperation(int year, int month, int day, String profile) {
 		int count = countOperation(year, month, day, profile);
 		if (count != 0) {
 			jdbcTemplate.update("delete from operation_history_tbl where year=? and month=? and day=? and profile=?",
@@ -111,7 +111,7 @@ public class OperationManager {
 			int month = rs.getInt("month");
 			int day = rs.getInt("day");
 			String content = rs.getString("content");
-			int profile = rs.getInt("profile");
+			String profile = rs.getString("profile");
 			return new Operation(year, month, day, content, profile);
 		}
 	}
@@ -134,7 +134,7 @@ public class OperationManager {
 		public Operation mapRow(ResultSet rs, int rowNum) throws SQLException {
 			int day = rs.getInt("day");
 			String content = rs.getString("content");
-			int profile = rs.getInt("profile");
+			String profile = rs.getString("profile");
 			return new Operation(day, content, profile);
 		}
 	}
@@ -150,7 +150,7 @@ public class OperationManager {
 	}
 
 	// 該当年月日にOperationが登録されているか否かを判断するツール
-	public int countOperation(int year, int month, int day, int profile) {
+	public int countOperation(int year, int month, int day, String profile) {
 		int count = jdbcTemplate.queryForObject(
 				"select count(*) from operation_history_tbl where year=? and month=? and day=? and profile=?",
 				Integer.class, year, month, day, profile);
@@ -159,7 +159,7 @@ public class OperationManager {
 
 
 	// OperationのNumber取得
-	public int getOperationNum(int year, int month, int day, int profile) {
+	public int getOperationNum(int year, int month, int day, String profile) {
 		int number = -1;
 		Operation operation = getOneOperation(year, month, day, profile);
 		if (operation != null) {

@@ -26,10 +26,10 @@ public class IndexController {
 	static int nowMonth = getCalendar.getNowMonth();
 	static int nowDay = getCalendar.getNowDay();
 
-	@RequestMapping(value = "/it")
-	public String indexIt(Operation operation, Model model) {
+	@RequestMapping(value = "/{profile}")
+	public String indexIt(Operation operation, Model model, @PathVariable("profile") String profile) {
 		setDate(operation);
-		operation.setProfile(0);
+		operation.setProfile(profile);
 
 		int lastDay = getCalendar.getLastDay(nowYear, nowMonth);
 		List<Operation> operationHistory = operationManager.getPeriodOperation(nowYear, nowMonth, operation.getProfile());
@@ -44,10 +44,10 @@ public class IndexController {
 		return "indexIt";
 	}
 
-	@RequestMapping(value = "/it/select")
-	public String updateIt(Operation operation, RedirectAttributes attributes, @RequestParam("dispYear") int dispYear, @RequestParam("dispMonth") int dispMonth) {
+	@RequestMapping(value = "/{profile}/select")
+	public String updateIt(Operation operation, RedirectAttributes attributes, @RequestParam("dispYear") int dispYear, @RequestParam("dispMonth") int dispMonth, @PathVariable("profile") String profile) {
 		setDate(operation);
-		operation.setProfile(0);
+		operation.setProfile(profile);
 		operationManager.updateOperation(operation);
 
 		int lastDay = getCalendar.getLastDay(dispYear, dispMonth);
@@ -56,12 +56,13 @@ public class IndexController {
 		attributes.addFlashAttribute("dispMonth", dispMonth);
 		attributes.addFlashAttribute("lastDay",lastDay);
 		attributes.addFlashAttribute("history", operationHistory);
-		return "redirect:/it";
+		System.out.println(profile);
+		return "redirect:/{profile}";
 	}
 
-	@RequestMapping(value = "/it/{year}/{month}")
-	public String getPreviousIt(Operation operation, Model model, @PathVariable("year") int year, @PathVariable("month") int month) {
-		operation.setProfile(0);
+	@RequestMapping(value = "/{profile}/{year}/{month}")
+	public String getPreviousIt(Operation operation, Model model, @PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("profile") String profile) {
+		operation.setProfile(profile);
 
 		int lastDay = getCalendar.getLastDay(year, month);
 		List<Operation> operationHistory = operationManager.getPeriodOperation(year, month, operation.getProfile());
@@ -75,7 +76,7 @@ public class IndexController {
 		return "indexIt";
 	}
 
-
+/*
 	@RequestMapping(value = "/dev")
 	public String indexDev(Operation operation, Model model) {
 		setDate(operation);
@@ -123,7 +124,7 @@ public class IndexController {
 		int number = operationManager.getOperationNum(nowYear, nowMonth, nowDay, operation.getProfile());
 		model.addAttribute("number", number);
 		return "indexDev";
-	}
+	}*/
 
 	public void setDate(Operation operation) {
 		operation.setYear(nowYear);

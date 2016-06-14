@@ -5,7 +5,7 @@
 <title>さくせん</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/styleDQ.css}" />
-<script th:src="@{/js/jquery/jquery.js}"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -22,6 +22,7 @@ $(document).ready(function(){
 
 	$(function() {
 		$("input[name='number']").change(function() {
+			$("#operationForm").attr("action", "/" + $("#profile").val() + "/select");
 			$("#operationForm").submit();
 		});
 	});
@@ -35,7 +36,7 @@ $(document).ready(function(){
 		}else {
 			month -= 1;
 		}
-		location.href = "/it/" + year + "/" + month;
+		location.href = "/" + $("#profile").val() + "/" + year + "/" + month;
 	}
 
 	function nextPage() {
@@ -47,7 +48,7 @@ $(document).ready(function(){
 		}else {
 			month += 1;
 		}
-		location.href = "/it/" + year + "/" + month;
+		location.href = "/" +  $("#profile").val() + "/" + year + "/" + month;
 	}
 </script>
 </head>
@@ -56,7 +57,7 @@ $(document).ready(function(){
 	<div class="operationList">
 		<p id="operation" align="center">さくせん</p>
 		<div id="line">
-			<form id="operationForm" method="post" action="/it/select" th:object="${operation}">
+			<form id="operationForm" method="post" action="" th:object="${operation}">
 				<table class="list">
 					<tr>
 						<td class="check"><input type="radio" name="number" value="0"
@@ -82,15 +83,14 @@ $(document).ready(function(){
 				<br/><br/>
 				<input type="hidden" th:field="*{year}" />
 				<input type="hidden" th:field="*{month}" />
-				<input type="hidden" th:field="*{day}" />
 				<input type="hidden" name="dispYear" th:value="${dispYear}" />
 				<input type="hidden" name="dispMonth" th:value="${dispMonth}" />
 			</form>
 		</div>
 	</div>
 
-	<!-- 選択したさくせんのnumberを受け取る -->
 		<input type="hidden" id="operationNum" th:value="${number}" />
+		<input type="hidden" id="profile" th:field="${operation.profile}" />
 
 <div class="history">
 	<div class="month">

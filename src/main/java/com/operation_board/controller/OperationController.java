@@ -36,7 +36,7 @@ public class OperationController {
 
 	// OperationHistory該当Profile全件取得
 	@RequestMapping(value = "{profile}", method = RequestMethod.GET)
-	List<Operation> getProfile(@PathVariable int profile) {
+	List<Operation> getProfile(@PathVariable String profile) {
 		List<Operation> operationProfileHistories = operationManager.getProfileAllOperation(profile);
 		return operationProfileHistories;
 	}
@@ -50,14 +50,14 @@ public class OperationController {
 
 	// OperationHistory該当Profile該当年月取得
 	@RequestMapping(value = "{profile}/{year}/{month}", method = RequestMethod.GET)
-	List<Operation> getProfilePeriod(@PathVariable int profile, @PathVariable int year, @PathVariable int month) {
+	List<Operation> getProfilePeriod(@PathVariable String profile, @PathVariable int year, @PathVariable int month) {
 		List<Operation> operationProfileHistory = operationManager.getPeriodOperation(year, month, profile);
 		return operationProfileHistory;
 	}
 
 	// OperationHistory1件取得
 	@RequestMapping(value = "{profile}/{year}/{month}/{day}", method = RequestMethod.GET)
-	Operation getOne(@PathVariable int profile, @PathVariable int year, @PathVariable int month, @PathVariable int day) {
+	Operation getOne(@PathVariable String profile, @PathVariable int year, @PathVariable int month, @PathVariable int day) {
 		Operation operation = operationManager.getOneOperation(year, month, day, profile);
 		return operation;
 	}
@@ -72,7 +72,7 @@ public class OperationController {
 	// Operation1件削除
 	@RequestMapping(value = "{profile}/{year}/{month}/{day}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void delete(@PathVariable int profile, @PathVariable int year,@PathVariable int month,@PathVariable int day) {
+	void delete(@PathVariable String profile, @PathVariable int year,@PathVariable int month,@PathVariable int day) {
 		operationManager.deleteOperation(year, month ,day, profile);
 	}
 }

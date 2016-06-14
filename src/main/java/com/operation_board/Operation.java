@@ -7,7 +7,7 @@ public class Operation {
 	private int day;
 	private int number;
 	private String content;
-	int profile;
+	String profile;
 
 	public Operation() {}
 
@@ -17,7 +17,7 @@ public class Operation {
 		this.number = number;
 	}
 
-	public Operation(int year, int month, int day, String content, int profile) {
+	public Operation(int year, int month, int day, String content, String profile) {
 		super();
 		this.year = year;
 		this.month = month;
@@ -34,7 +34,7 @@ public class Operation {
 		this.content = content;
 	}
 
-	public Operation(int day, String content, int profile) {
+	public Operation(int day, String content, String profile) {
 		super();
 		this.day = day;
 		this.content = content;
@@ -82,10 +82,10 @@ public class Operation {
 		this.content = content;
 	}
 
-	public int getProfile() {
+	public String getProfile() {
 		return profile;
 	}
-	public void setProfile(int profile) {
+	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 }
