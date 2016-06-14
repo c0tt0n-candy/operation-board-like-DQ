@@ -18,6 +18,11 @@ $(document).ready(function(){
 	} else {
 		document.getElementsByName("number")[checkNum].checked = true;
 	}
+
+	var profile = $("#profile").val();
+	if (!(profile == "it" || profile == "dev")) {
+		location.href = "/it";
+	}
 });
 
 	$(function() {
