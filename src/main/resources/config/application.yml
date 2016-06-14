@@ -1,5 +1,5 @@
 spring:
-    thymeleaf:
+    thymeleaf::
         cache: false
     profiles:
       active: dev
@@ -8,7 +8,7 @@ spring:
   profiles: dev
   datasource:
         driverClassName: org.h2.Driver
-        url: jdbc:h2:file:./db/test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:./db/test;
         username: sa
         password:
 ---
